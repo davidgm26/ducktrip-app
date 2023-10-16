@@ -1,5 +1,11 @@
-<script setup>
-import SearchFlight from './components/SearchFlight.vue';
+<script>
+import SearchFlight from './components/SearchFlight/SearchFlight.vue';
+export default {
+  name: "App",
+  components: {
+    SearchFlight
+  }
+}
 </script>
 
 <template>
