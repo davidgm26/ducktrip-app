@@ -25,21 +25,12 @@
                     <input class="nav-description" type="date">
                 </div>
                 <div class="option-wrapper">
-                    <div class="nav-form" ref="formRef">
-                        <div class="option-wrapper" @click="toggleDropdown">
-                            <label class="nav-info">Viajeros</label>
-                        </div>
-                        <div class="dropdown" v-show="dropdownVisible" ref="dropdownRef">
-                            <p>Adultos: {{ adultCount }}</p>
-                            <button @click="decrementAdults">-1</button>
-                            <button @click="incrementAdults">+1</button>
-                        </div>
-                    </div>
+                    <label class="nav-info">Viajeros</label>
+                    <input class="nav-description" type="string" placeholder="Número de adultos">
                 </div>
             </div>
-            <!-- <span>2 viajeros, 1 habitación, Cualquier clase</span> -->
+            <button class="search">Buscar</button>
         </div>
-        <button class="search">Buscar</button>
     </div>
 </template>
 
@@ -116,26 +107,4 @@
     padding: 0 1rem;
 }
 </style>
-
-<script>
-export default {
-    data() {
-        return {
-            dropdownVisible: false,
-            adultCount: 1
-        };
-    },
-    methods: {
-        toggleDropdown() {
-            this.dropdownVisible = !this.dropdownVisible;
-        },
-        incrementAdults() {
-            this.adultCount++;
-        },
-        decrementAdults() {
-            this.adultCount = Math.max(this.adultCount - 1, 1);
-        }
-    }
-};
-</script>
 
