@@ -1,15 +1,18 @@
 <template>
     <nav class="container">
         <div class="top-side">
-            <div class="logo">
-                <p class="name">DUCKTRIP</p>
-                <img src="../assets/icons/logo.svg" alt="logo">
+            <div>
+                <router-link to="/" class="logo">
+                    <p class="name">DUCKTRIP</p>
+                    <img src="../assets/icons/logo.svg" alt="logo">
+                </router-link>
+
             </div>
             <div class="buttons">
-                <a class="button">About</a>
-                <a class="button">Contacto</a>
-                <a class="button">Tiempo</a>
-                <a class="button">Hoteles</a>
+                <router-link to="/" class="button">About</router-link>
+                <router-link to="/flights" class="button">Vuelos</router-link>
+                <!-- <router-link to="/" class="button">Tiempo</router-link> -->
+                <!-- <router-link to="/" class="button">Hoteles</router-link> -->
             </div>
         </div>
         <div class="bottom-side">
@@ -61,6 +64,7 @@ export default {
                 background-color: #002148;
                 color: var(--words-color);
                 border-radius: 20px;
+                text-decoration: none;
             }
         }
 
@@ -71,6 +75,7 @@ export default {
             align-items: center;
             gap: 1rem;
             color: var(--words-color);
+            text-decoration: none;
 
             & img {
                 max-width: 30px;
@@ -96,4 +101,5 @@ export default {
         }
     }
 
-}</style>
+}
+</style>
