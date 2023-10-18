@@ -4,8 +4,8 @@ export async function getToken() {
   const url = "https://test.api.amadeus.com/v1/security/oauth2/token";
   const data = new URLSearchParams();
   data.append("grant_type", "client_credentials");
-  data.append("client_id", "ILwtcPEt40G8mDOrpB7LgJiROXJ3XFJj");
-  data.append("client_secret", "KmKijFj51UOfDmNs");
+  data.append("client_id", "");
+  data.append("client_secret", "");
 
   const tokenData = await fetch(url, {
     method: "POST",
@@ -37,14 +37,23 @@ export async function getFlights(OriginIataCity, DestinyIataCity) {
     const res = await fetch(BASE_URL, options);
     const data = await res.json();
     console.log("data", data);
+    // if (
+    //   data &&
+    //   data.errors &&
+    //   data.errors.length > 0 &&
+    //   data.errors[0].code === 38190
+    // ) {
+    //   localStorage.setItem("token", "");
+    //   return "Vuelve a intentarlo";
+    // }
     if (
       data &&
       data.errors &&
       data.errors.length > 0 &&
-      data.errors[0].code === 38190
+      data.errors[0].code === 38192
     ) {
       localStorage.setItem("token", "");
-      return "Vuelve a intentarlo";
+      return "El token ha expirado";
     }
     return data;
   } catch (err) {

@@ -40,12 +40,12 @@
     </div>
     <!-- borrar esto -> -->
     <div class="PRUEBA">
-        <p>{{ FlightsOffers.data[0] }}</p>
+        <p>{{ FlightsOffers }}</p>
     </div>
 </template>
 
 <script>
-import { getFlights } from "../stores/modules/getFlights.js"
+import { getFlights } from "../../stores/modules/getFlights.js"
 
 import DropDown from "./components/DropDown/DropDown.vue"
 export default {
