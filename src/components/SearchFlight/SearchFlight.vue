@@ -26,10 +26,13 @@
                     <input class="nav-description" type="date">
                 </div>
                 <div class="option-wrapper">
-                    <label class="nav-info">Viajeros y clase del vuelo</label>
-                    <input class="nav-description">
-                    <!-- <span>2 viajeros, 1 habitación, Cualquier clase</span> -->
 
+                    <label class="nav-info" @click="toggleDropdown">Viajeros</label>
+                    <span class="nav-description" @click="toggleDropdown">
+                        {{ adultCount }} adultos
+                    </span>
+                    <DropDown :isVisible=isDropdownOpen :adultCount=adultCount :incrementAdults=incrementAdults
+                        :decrementAdults=decrementAdults :onReadyClick=handleReadyClick />
                 </div>
             </div>
             <button class="search" @click="getData">Buscar</button>
@@ -41,16 +44,60 @@
     </div>
 </template>
 
+<script>
+import { getFlights } from "../stores/modules/getFlights.js"
+
+import DropDown from "./components/DropDown/DropDown.vue"
+export default {
+    components: {
+        DropDown
+    },
+    data() {
+        return {
+
+            isDropdownOpen: false,
+            dataFromDropDown: "",
+            adultCount: 1,
+            OriginIataCity: "",
+            DestinyIataCity: "",
+            FlightsOffers: ""
+        };
+    },
+    methods: {
+        toggleDropdown() {
+            this.isDropdownOpen = !this.isDropdownOpen;
+        },
+        incrementAdults() {
+            this.adultCount++;
+        },
+        decrementAdults() {
+            this.adultCount = Math.max(this.adultCount - 1, 1);
+        },
+        receiveDataFromDropDown(data) {
+            this.dataFromDropDown = data;
+        },
+        handleReadyClick() {
+            this.isDropdownOpen = false;
+        },
+        async getData() {
+            this.FlightsOffers = await getFlights(this.OriginIataCity, this.DestinyIataCity)
+            console.log(this.FlightsOffers);
+        }
+    }
+}
+
+</script>
+
 <style>
 .nav {
-    background-color: rgb(27, 85, 176);
+    background-color: #1b55b0;
     width: 100%;
     padding: 1rem 2rem;
 }
 
 .nav-tittle {
     color: #FFFFFF;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-shadow: 0px 4px 4px #00000040;
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
@@ -67,7 +114,7 @@
 .nav-button {
     border-radius: 10px;
     border: none;
-    background: rgba(0, 33, 72, 0.5);
+    background: #00214880;
     color: #FFFFFF;
     cursor: pointer;
     font-size: 1rem;
@@ -82,27 +129,39 @@
 
 .nav-options {
     display: flex;
-    border-radius: 0.5rem;
     gap: 0.25rem;
-    overflow: hidden;
 }
 
+
 .option-wrapper {
-    background-color: rgba(255, 255, 255, 0.83);
+    background-color: #ffffffd4;
     display: flex;
     flex-direction: column;
     padding: 0.5rem 1rem;
     gap: 0.25rem;
+    position: relative;
+    min-width: 8rem;
+}
+
+.option-wrapper:first-child {
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.option-wrapper:last-child {
+    border-radius: 0 0.5rem 0.5rem 0;
 }
 
 .nav-info {
     color: #393838;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-shadow: 0px 4px 4px #00000040;
 }
 
 .nav-description {
     background-color: transparent;
     border: none;
+    color: #393838;
+    font-size: 0.9rem;
+    line-height: 1rem;
 }
 
 .search {
@@ -113,24 +172,23 @@
     font-size: 26px;
     padding: 0 1rem;
 }
-</style>
 
-<script>
-import { getFlights } from "../stores/modules/getFlights.js"
-export default {
-    data() {
-        return {
-            OriginIataCity: "",
-            DestinyIataCity: "",
-            FlightsOffers: "",
-        }
-    },
-    methods: {
-        async getData() {
-            this.FlightsOffers = await getFlights(this.OriginIataCity, this.DestinyIataCity)
-            console.log(this.FlightsOffers);
-        }
-    },
+
+@media (max-width: 1028px) {
+    .nav-options {
+        flex-direction: column;
+    }
+
+    .nav-form {
+        flex-direction: column;
+    }
+
+    .option-wrapper:first-child {
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .option-wrapper:last-child {
+        border-radius: 0 0 0.5rem 0.5rem;
+    }
 }
-</script>
-
+</style>
