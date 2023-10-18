@@ -4,8 +4,8 @@ export async function getToken() {
   const url = "https://test.api.amadeus.com/v1/security/oauth2/token";
   const data = new URLSearchParams();
   data.append("grant_type", "client_credentials");
-  data.append("client_id", "");
-  data.append("client_secret", "");
+  data.append("client_id", "ILwtcPEt40G8mDOrpB7LgJiROXJ3XFJj");
+  data.append("client_secret", "KmKijFj51UOfDmNs");
 
   const tokenData = await fetch(url, {
     method: "POST",
