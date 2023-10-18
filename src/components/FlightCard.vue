@@ -28,14 +28,16 @@
 </template>
 <script>
 import { getFlights } from '../stores/modules/getFlights.js'
+import { getAirlineLogo } from '../stores/modules/getAirlineLogo.js'
+
 
 export default {
     name: "FlightCard",
 
     data() {
         return {
-            OriginIataCity: "",
-            DestinyIataCity: "",
+            OriginIataCity: "MAD",
+            DestinyIataCity: "SEV",
             FlightsOffers: "",
             AirlineLogo: []
         }
