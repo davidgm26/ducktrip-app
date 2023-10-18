@@ -10,11 +10,12 @@
             <div class="nav-options">
                 <div class="option-wrapper">
                     <label class="nav-info">Desde</label>
-                    <input class="nav-description" placeholder="País, ciudad o aeropuerto">
+                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="OriginIataCity">
+                    {{ OriginIataCity }}
                 </div>
                 <div class="option-wrapper">
                     <label class="nav-info">A</label>
-                    <input class="nav-description" placeholder="País, ciudad o aeropuerto">
+                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="DestinyIataCity">
                 </div>
                 <div class="option-wrapper">
                     <label class="nav-info">Ida</label>
@@ -31,8 +32,12 @@
 
                 </div>
             </div>
-            <button class="search">Buscar</button>
+            <button class="search" @click="getData">Buscar</button>
         </div>
+    </div>
+    <!-- borrar esto -> -->
+    <div class="PRUEBA">
+        <p>{{ FlightsOffers.data[0] }}</p>
     </div>
 </template>
 
@@ -111,12 +116,21 @@
 </style>
 
 <script>
+import { getFlights } from "../stores/modules/getFlights.js"
 export default {
-    setup() {
-
-
-        return {}
-    }
+    data() {
+        return {
+            OriginIataCity: "",
+            DestinyIataCity: "",
+            FlightsOffers: "",
+        }
+    },
+    methods: {
+        async getData() {
+            this.FlightsOffers = await getFlights(this.OriginIataCity, this.DestinyIataCity)
+            console.log(this.FlightsOffers);
+        }
+    },
 }
 </script>
 
