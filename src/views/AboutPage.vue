@@ -2,7 +2,9 @@
     <NavigationTopBar />
     <div class="about">
         <h1 class="about-title">Conoce al equipo</h1>
-        <div class=""></div>
+        <div class="about-background">
+            <div class="team-member"></div>
+        </div>
     </div>
 </template>
 
@@ -19,7 +21,11 @@ export default {
 .about {
     background-color: #ffffff;
     width: 100%;
+    min-height: 100vh;
     padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .about-title {
@@ -31,5 +37,14 @@ export default {
     font-weight: 400;
     line-height: normal;
     padding-bottom: 2rem;
+}
+
+.about-background {
+    width: 100%;
+    background-image: url(../assets/images/about-world.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    flex: 1 1 100%;
 }
 </style>
