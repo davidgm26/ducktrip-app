@@ -27,9 +27,9 @@
                 <div class="option-wrapper">
 
                     <label class="nav-info" @click="toggleDropdown">Viajeros</label>
-                    <p class="nav-description" type="string" @click="toggleDropdown">
+                    <span class="nav-description" @click="toggleDropdown">
                         {{ adultCount }} adultos
-                    </p>
+                    </span>
                     <DropDown :isVisible=isDropdownOpen :adultCount=adultCount :incrementAdults=incrementAdults
                         :decrementAdults=decrementAdults :onReadyClick=handleReadyClick />
                 </div>
@@ -124,6 +124,7 @@ export default {
     padding: 0.5rem 1rem;
     gap: 0.25rem;
     position: relative;
+    min-width: 8rem;
 }
 
 .option-wrapper:first-child {
@@ -143,6 +144,8 @@ export default {
     background-color: transparent;
     border: none;
     color: #393838;
+    font-size: 0.9rem;
+    line-height: 1rem;
 }
 
 .search {
@@ -152,5 +155,23 @@ export default {
     border: none;
     font-size: 26px;
     padding: 0 1rem;
+}
+
+@media (max-width: 1028px) {
+    .nav-options {
+        flex-direction: column;
+    }
+
+    .nav-form {
+        flex-direction: column;
+    }
+
+    .option-wrapper:first-child {
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .option-wrapper:last-child {
+        border-radius: 0 0 0.5rem 0.5rem;
+    }
 }
 </style>
