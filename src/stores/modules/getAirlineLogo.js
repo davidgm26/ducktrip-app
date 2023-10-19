@@ -2,7 +2,7 @@ export async function getAirlineLogo(airline) {
   const url = `https://api.api-ninjas.com/v1/airlines?iata=${airline}`;
   const options = {
     method: "GET",
-    headers: { "X-Api-Key": "2OPrNFas2lUveclX/ujp3g==uK7rhpklMs2EJM2y" },
+    headers: { "X-Api-Key": "" },
   };
   try {
     const res = await fetch(url, options);
