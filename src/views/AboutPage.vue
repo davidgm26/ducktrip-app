@@ -4,7 +4,7 @@
         <h1 class="about-title">Conoce al equipo</h1>
         <div class="about-background">
             <div class="member-team" v-for="member in members" :key="member.id">
-                <img class="member-photo" :src="member.image" />
+                <img class="member-photo" :src="member.image" width="102" height="120" />
                 <div class="member-info">
                     <div class="member-name">{{ member.name }}</div>
                     <div class="member-icons">
@@ -25,6 +25,7 @@
 import NavigationTopBar from '../components/NavigationTopBar.vue';
 import elenaImage from '@/assets/images/about-elena.png';
 import davidImage from '@/assets/images/about-david.jpg';
+import memberImage from '@/assets/images/about-member.png';
 
 export default {
     name: 'AboutPage',
@@ -42,7 +43,7 @@ export default {
                 {
                     id: 2,
                     name: "Carlos Andrés Concepción Rodríguez",
-                    image: elenaImage,
+                    image: memberImage,
                     github: "https://github.com/Conce131",
                     linkedin: "https://www.linkedin.com/in/carlos-conce/"
                 },
@@ -56,7 +57,7 @@ export default {
                 {
                     id: 4,
                     name: "Alejandro",
-                    image: elenaImage,
+                    image: memberImage,
                     github: "https://github.com/VassHigh",
                     linkedin: "https://www.linkedin.com/in/elena-exp%C3%B3sito-lara/"
                 },
@@ -124,6 +125,7 @@ export default {
     border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
     border: 2px solid #3E86F5;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    background-color: #ffffff;
 }
 
 .member-info {
