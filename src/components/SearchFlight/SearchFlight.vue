@@ -39,13 +39,19 @@
         </div>
     </div>
     <!-- borrar esto -> -->
-    <div class="PRUEBA">
-        <p>{{ FlightsOffers }}</p>
+    <div v-for="(Fligths, index) in FlightsOffers.data" :key="Fligths" class="PRUEBA" style="background-color: grey;">
+        <h1>Vuelo nº{{ index + 1 }}</h1>
+        <img :src="AirlineLogo[index]" alt="">
+        <p>numeros de asientos disponibles: {{ FlightsOffers.data[0].numberOfBookableSeats }}</p>
+        <p>Precio: {{ FlightsOffers.data[index].price.total + FlightsOffers.data[0].price.currency }}</p>
+
     </div>
 </template>
 
 <script>
 import { getFlights } from "../../stores/modules/getFlights.js"
+import { getAirlineLogo } from "../../stores/modules/getAirlineLogo.js"; // Asegúrate de usar la ruta correcta
+
 
 import DropDown from "./components/DropDown/DropDown.vue"
 export default {
@@ -60,7 +66,8 @@ export default {
             adultCount: 1,
             OriginIataCity: "",
             DestinyIataCity: "",
-            FlightsOffers: ""
+            FlightsOffers: "",
+            AirlineLogo: []
         };
     },
     methods: {
@@ -82,6 +89,16 @@ export default {
         async getData() {
             this.FlightsOffers = await getFlights(this.OriginIataCity, this.DestinyIataCity)
             console.log(this.FlightsOffers);
+
+            this.AirlineLogo = await Promise.all(this.FlightsOffers.data.map(async (flight) => {
+                const airlineCode = flight.validatingAirlineCodes[0]
+                console.log(flight.validatingAirlineCodes[0]);
+                const airlineInfo = await getAirlineLogo(airlineCode)
+                if (airlineInfo && airlineInfo.length > 0 && airlineInfo[0].logo_url) {
+                    return airlineInfo[0].logo_url
+                }
+            }));
+            console.log(this.AirlineLogo);
         }
     }
 }

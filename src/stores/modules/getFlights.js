@@ -31,7 +31,7 @@ export async function getFlights(OriginIataCity, DestinyIataCity) {
     },
   };
   const maxFlights = 10;
-  const BASE_URL = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${OriginIataCity}&destinationLocationCode=${DestinyIataCity}&departureDate=2023-11-02&adults=1&nonStop=false&max=${maxFlights}`;
+  const BASE_URL = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${OriginIataCity}&destinationLocationCode=${DestinyIataCity}&departureDate=2023-11-02&adults=1&nonStop=true&max=${maxFlights}`;
 
   try {
     const res = await fetch(BASE_URL, options);
