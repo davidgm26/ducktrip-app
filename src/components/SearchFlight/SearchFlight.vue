@@ -10,11 +10,12 @@
             <div class="nav-options">
                 <div class="option-wrapper">
                     <label class="nav-info">Desde</label>
-                    <input class="nav-description" placeholder="País, ciudad o aeropuerto">
+                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="OriginIataCity">
+                    {{ OriginIataCity }}
                 </div>
                 <div class="option-wrapper">
                     <label class="nav-info">A</label>
-                    <input class="nav-description" placeholder="País, ciudad o aeropuerto">
+                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="DestinyIataCity">
                 </div>
                 <div class="option-wrapper">
                     <label class="nav-info">Ida</label>
@@ -34,12 +35,24 @@
                         :decrementAdults=decrementAdults :onReadyClick=handleReadyClick />
                 </div>
             </div>
-            <button class="search">Buscar</button>
+            <button class="search" @click="getData">Buscar</button>
         </div>
+    </div>
+    <!-- borrar esto -> -->
+    <div v-for="(Fligths, index) in FlightsOffers.data" :key="Fligths" class="PRUEBA" style="background-color: grey;">
+        <h1>Vuelo nº{{ index + 1 }}</h1>
+        <img :src="AirlineLogo[index]" alt="">
+        <p>numeros de asientos disponibles: {{ FlightsOffers.data[0].numberOfBookableSeats }}</p>
+        <p>Precio: {{ FlightsOffers.data[index].price.total + FlightsOffers.data[0].price.currency }}</p>
+
     </div>
 </template>
 
 <script>
+import { getFlights } from "../../stores/modules/getFlights.js"
+import { getAirlineLogo } from "../../stores/modules/getAirlineLogo.js"; // Asegúrate de usar la ruta correcta
+
+
 import DropDown from "./components/DropDown/DropDown.vue"
 export default {
     components: {
@@ -47,9 +60,14 @@ export default {
     },
     data() {
         return {
+
             isDropdownOpen: false,
             dataFromDropDown: "",
-            adultCount: 1
+            adultCount: 1,
+            OriginIataCity: "",
+            DestinyIataCity: "",
+            FlightsOffers: "",
+            AirlineLogo: []
         };
     },
     methods: {
@@ -68,8 +86,23 @@ export default {
         handleReadyClick() {
             this.isDropdownOpen = false;
         },
+        async getData() {
+            this.FlightsOffers = await getFlights(this.OriginIataCity, this.DestinyIataCity)
+            console.log(this.FlightsOffers);
+
+            this.AirlineLogo = await Promise.all(this.FlightsOffers.data.map(async (flight) => {
+                const airlineCode = flight.validatingAirlineCodes[0]
+                console.log(flight.validatingAirlineCodes[0]);
+                const airlineInfo = await getAirlineLogo(airlineCode)
+                if (airlineInfo && airlineInfo.length > 0 && airlineInfo[0].logo_url) {
+                    return airlineInfo[0].logo_url
+                }
+            }));
+            console.log(this.AirlineLogo);
+        }
     }
-};
+}
+
 </script>
 
 <style>
@@ -156,6 +189,7 @@ export default {
     font-size: 26px;
     padding: 0 1rem;
 }
+
 
 @media (max-width: 1028px) {
     .nav-options {
