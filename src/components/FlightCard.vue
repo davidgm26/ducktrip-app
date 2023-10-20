@@ -27,10 +27,33 @@
     </div>
 </template>
 <script>
+import { getFlights } from '../stores/modules/getFlights.js'
+
 export default {
     name: "FlightCard",
+
     data() {
         return {
+            OriginIataCity: "",
+            DestinyIataCity: "",
+            FlightsOffers: "",
+            AirlineLogo: []
+        }
+    },
+    methods: {
+        async getData() {
+            this.FlightsOffers = await getFlights(this.OriginIataCity, this.DestinyIataCity)
+            console.log(this.FlightsOffers);
+
+            this.AirlineLogo = await Promise.all(this.FlightsOffers.data.map(async (flight) => {
+                const airlineCode = flight.validatingAirlineCodes[0]
+                console.log(flight.validatingAirlineCodes[0]);
+                const airlineInfo = await getAirlineLogo(airlineCode)
+                if (airlineInfo && airlineInfo.length > 0 && airlineInfo[0].logo_url) {
+                    return airlineInfo[0].logo_url
+                }
+            }));
+            console.log(this.AirlineLogo);
         }
     },
 }
