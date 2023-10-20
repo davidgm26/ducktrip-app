@@ -1,22 +1,15 @@
 <script>
-import SearchFlight from './components/SearchFlight.vue';
-//import FlightCard from './components/FlightCard.vue';
+import { RouterView } from 'vue-router'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    SearchFlight,
-    //FlightCard
+    RouterView
   }
-
 }
-
 </script>
 
 <template>
-  <header>
-    <SearchFlight />
-  </header>
   <RouterView />
 </template>
 
