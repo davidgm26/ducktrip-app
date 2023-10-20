@@ -4,7 +4,10 @@
         <h1 class="about-title">Conoce al equipo</h1>
         <div class="about-background">
             <div class="member-team" v-for="member in members" :key="member.id">
-                <img class="member-photo" :src="member.image" width="102" height="120" />
+                <div class="member-photo">
+                    <img class="first-photo" :src="member.image" width="102" height="120" />
+                    <img class="hover-photo" :src="member.hoverImage" width="102" height="120" />
+                </div>
                 <div class="member-info">
                     <div class="member-name">{{ member.name }}</div>
                     <div class="member-icons">
@@ -24,7 +27,9 @@
 <script>
 import NavigationTopBar from '../components/NavigationTopBar.vue';
 import elenaImage from '@/assets/images/about-elena.png';
+import elenaImageHover from '@/assets/images/about-elena-hover.jpg';
 import davidImage from '@/assets/images/about-david.jpg';
+import davidImageHover from '@/assets/images/about-david-hover.jpg';
 import memberImage from '@/assets/images/about-member.png';
 
 export default {
@@ -37,6 +42,7 @@ export default {
                     id: 1,
                     name: "Elena Expósito Lara",
                     image: elenaImage,
+                    hoverImage: elenaImageHover,
                     github: "https://github.com/ElenaExposito",
                     linkedin: "https://www.linkedin.com/in/elena-exp%C3%B3sito-lara/"
                 },
@@ -44,6 +50,7 @@ export default {
                     id: 2,
                     name: "Carlos Andrés Concepción Rodríguez",
                     image: memberImage,
+                    hoverImage: memberImage,
                     github: "https://github.com/Conce131",
                     linkedin: "https://www.linkedin.com/in/carlos-conce/"
                 },
@@ -51,13 +58,15 @@ export default {
                     id: 3,
                     name: "David García María",
                     image: davidImage,
+                    hoverImage: davidImageHover,
                     github: "https://github.com/davidgm26",
                     linkedin: "https://www.linkedin.com/in/david-garciamar/"
                 },
                 {
                     id: 4,
-                    name: "Alejandro",
+                    name: "Alejandro Reguera Rodríguez",
                     image: memberImage,
+                    hoverImage: memberImage,
                     github: "https://github.com/VassHigh",
                     linkedin: "https://www.linkedin.com/in/elena-exp%C3%B3sito-lara/"
                 },
@@ -112,24 +121,48 @@ export default {
     border-radius: 193.5px;
     background: linear-gradient(180deg, #005EEF 0%, #C1D8FD 100%);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    padding: 1rem;
 }
 
 .member-photo {
-    height: 120px;
     position: relative;
+    width: 102px;
+    flex: 0 0 120px;
+    transition: transform 0.3s;
+    transform-style: preserve-3d;
+
+    &:hover {
+        transform: rotateY(180deg);
+    }
+}
+
+.first-photo {
+    height: 120px;
+    position: absolute;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    border: 2px solid #3e86f5;
+    filter: drop-shadow(0px 4px 4px #00000040);
+    background-color: #ffffff;
+    backface-visibility: hidden;
+}
+
+.hover-photo {
+    height: 120px;
+    position: absolute;
     border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
     border: 2px solid #3E86F5;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     background-color: #ffffff;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
 }
 
 .member-info {
-    height: 100%;
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -156,6 +189,11 @@ export default {
 .member-icon {
     width: 2rem;
     height: 2rem;
+    transition: transform 0.3s;
+}
+
+.member-icon:hover {
+    transform: scale(1.3);
 }
 
 @media (max-width: 656px) {
