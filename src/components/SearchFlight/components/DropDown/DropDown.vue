@@ -21,7 +21,8 @@ export default {
         adultCount: Number,
         incrementAdults: Function,
         decrementAdults: Function,
-        onReadyClick: Function
+        onReadyClick: Function,
+        updateAdult: Function
     },
 };
 

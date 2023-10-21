@@ -9,17 +9,20 @@
         <div class="nav-form">
             <div class="nav-options">
                 <div class="option-wrapper">
-                    <label class="nav-info">Desde</label>
-                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="OriginIataCity">
+                    <label class="nav-info">Desde {{ departureIata }}</label>
+                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="OriginIataCity"
+                        @input="updateFlight">
                     {{ OriginIataCity }}
                 </div>
                 <div class="option-wrapper">
-                    <label class="nav-info">A</label>
-                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="DestinyIataCity">
+                    <label class="nav-info">A {{ arrivalIata }}</label>
+                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="DestinyIataCity"
+                        @input="uptdateArrivalIata">
                 </div>
-                <div class="option-wrapper">
-                    <label class="nav-info">Ida</label>
-                    <input class="nav-description" type="date">
+                <div class=" option-wrapper">
+                    <label class="nav-info">Ida {{ departureDate }}</label>
+                    <input class="nav-description" type="date" v-model="OriginDate" @input="updateDepartureDate">
+                    {{ OriginDate }}
                 </div>
                 <div class="option-wrapper">
                     <label class="nav-info">Vuelta</label>
@@ -51,8 +54,8 @@
 <script>
 import { getFlights } from "../../stores/modules/getFlights.js"
 import { getAirlineLogo } from "../../stores/modules/getAirlineLogo.js"; // Asegúrate de usar la ruta correcta
-
-
+import { flightSearchStore } from "../../stores/counter.js"
+import { mapActions, mapState } from "pinia";
 import DropDown from "./components/DropDown/DropDown.vue"
 export default {
     components: {
@@ -67,10 +70,32 @@ export default {
             OriginIataCity: "",
             DestinyIataCity: "",
             FlightsOffers: "",
-            AirlineLogo: []
+            AirlineLogo: [],
+            OriginDate: "",
+            DestinyDate: "",
         };
     },
+    computed: {
+        ...mapState(flightSearchStore, [
+            'departureIata',
+            'arrivalIata',
+            'departureDate',
+            'adult',
+        ])
+    },
     methods: {
+        updateFlight(e) {
+            this.setdepartureIata(e.target.value)
+        },
+        uptdateArrivalIata(e) {
+            this.setarrivalIata(e.target.value);
+        },
+        updateDepartureDate(e) {
+            this.setdepartureDate(e.target.value);
+        },
+        updateAdultCount(e) {
+            this.setadultCount(e.target.value);
+        },
         toggleDropdown() {
             this.isDropdownOpen = !this.isDropdownOpen;
         },
@@ -99,7 +124,8 @@ export default {
                 }
             }));
             console.log(this.AirlineLogo);
-        }
+        },
+        ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'setadultCount']),
     }
 }
 
