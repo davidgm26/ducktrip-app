@@ -9,8 +9,9 @@
 
             </div>
             <div class="buttons">
-                <router-link to="/" class="button">About</router-link>
+                <router-link to="/about" class="button">About</router-link>
                 <router-link to="/flights" class="button">Vuelos</router-link>
+                <router-link to="/tips" class="button">Tips</router-link>
                 <!-- <router-link to="/" class="button">Tiempo</router-link> -->
                 <!-- <router-link to="/" class="button">Hoteles</router-link> -->
             </div>
