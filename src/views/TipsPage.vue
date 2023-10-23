@@ -55,34 +55,67 @@
 
             <h2 class="tip-title" id="title1">1. Investiga y planifica</h2>
             <img src="" alt="" class="tip-image">
-            <p class="paragraph"></p>
+            <p class="paragraph">Investiga sobre tu <b>destino</b>, su <b>cultura</b>, <b>costumbres</b> y
+                <b>atracciones</b> antes de
+                viajar. Planificar con antelación te ayudará a sacar el máximo provecho de tu viaje.
+            </p>
+            <p class="paragraph">Además, te permiten <b>anticipar</b> posibles desafíos y te brindan la confianza
+                necesaria para disfrutar al máximo de tu aventura sin preocupaciones innecesarias.
+            </p>
             <h2 class="tip-title" id="title2">2. Packing inteligente</h2>
             <img src="" alt="" class="tip-image">
-            <p class="paragraph"></p>
+            <p class="paragraph">Haz tu maleta de forma inteligente, lleva <b>solo lo necesario</b> y elige <b>ropa
+                    versátil</b>.
+                No
+                olvides
+                elementos esenciales como adaptadores de corriente y artículos de cuidado personal.</p>
+            <p class="paragraph">Para ello, te recomendamos hacer una lista como la siguiente que te ayude a evitar olvidos
+                de último minuto:</p>
+
+            <div class="list-container">
+                <ul>
+                    <h4 class="list-title">Fin de semana:</h4>
+                    <li v-for="(item, index) in listaMaleta" :key="index">
+                        <label class="list-item">
+                            <input type="checkbox" v-model="item.checked">
+                            <span :class="{ checked: item.checked }" @click="toggleItem(item)">{{ item.name }}</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
             <h2 class="tip-title" id="title3">3. Documentos importantes</h2>
             <img src="" alt="" class="tip-image">
-            <p class="paragraph"></p>
+            <p class="paragraph">Asegúrate de llevar contigo todos los documentos necesarios, como pasaportes, visas,
+                boletos y copias de seguridad electrónicas de los mismos.</p>
             <h2 class="tip-title" id="title4">4. Seguro de viaje</h2>
             <img src="" alt="" class="tip-image">
-            <p class="paragraph"></p>
+            <p class="paragraph">Considera la posibilidad de obtener un seguro de viaje que cubra emergencias médicas,
+                cancelaciones y pérdida de equipaje. Proporciona tranquilidad en caso de imprevistos.</p>
             <h2 class="tip-title" id="title5">5. Presupuesto adecuado</h2>
             <img src="" alt="" class="tip-image">
-            <p class="paragraph"></p>
+            <p class="paragraph">Establece un presupuesto para tu viaje y trata de ceñirte a él. Lleva un registro de tus
+                gastos para evitar sorpresas desagradables.</p>
             <h2 class="tip-title" id="title6">6. Aprende algunas frases locales</h2>
             <img src="" alt="" class="tip-image">
-            <p class="paragraph"></p>
+            <p class="paragraph">Aprender algunas frases básicas en el idioma local puede facilitar la comunicación y
+                mostrar respeto por la cultura local.</p>
             <h2 class="tip-title" id="title7">7. Viaja ligero</h2>
             <img src="" alt="" class="tip-image">
-            <p class="paragraph"></p>
+            <p class="paragraph">Lleva una mochila pequeña o maleta de mano para evitar cargas innecesarias y agilizar el
+                proceso de registro y desplazamiento.</p>
             <h2 class="tip-title" id="title8">8. Mantén la mente abierta</h2>
             <img src="" alt="" class="tip-image">
-            <p class="paragraph"></p>
+            <p class="paragraph">Sé flexible y dispuesto a probar cosas nuevas. Los viajes ofrecen oportunidades únicas para
+                experimentar culturas diferentes.</p>
             <h2 class="tip-title" id="title9">9. Interactúa con locales</h2>
             <img src="" alt="" class="tip-image">
-            <p class="paragraph"></p>
+            <p class="paragraph">Conoce a la gente local y haz amigos. Ellos pueden proporcionarte consejos valiosos y
+                enriquecer tu experiencia.</p>
             <h2 class="tip-title" id="title10">10. Haz copias de seguridad de tus fotos y documentos</h2>
             <img src="" alt="" class="tip-image">
-            <p class="paragraph"></p>
+            <p class="paragraph">Utiliza servicios de almacenamiento en la nube para respaldar tus fotos y documentos
+                importantes, como pasaportes y reservas de hotel, en caso de pérdida o robo.</p>
         </section>
     </main>
 </template>
@@ -93,7 +126,21 @@ import NavigationTopBar from '../components/NavigationTopBar.vue';
 export default {
     name: 'TipsPage',
     components: { NavigationTopBar },
-}
+    data() {
+        return {
+            listaMaleta: [
+                { name: "prueba1", checked: false },
+                { name: "prueba2", checked: false },
+                { name: "prueba3", checked: false },
+            ],
+        };
+    },
+    methods: {
+        toggleItem(item) {
+            item.checked = !item.checked;
+        },
+    },
+};
 </script>
 
 <style>
@@ -146,7 +193,8 @@ export default {
 .paragraph {
     color: #00307A;
     text-shadow: 0px 4px 4px #00000040;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    padding: 0 2rem;
 
     & b {
         font-weight: 700;
@@ -182,5 +230,36 @@ export default {
     font-weight: 400;
     line-height: 2rem;
     text-decoration: none;
+}
+
+.list-container {
+    width: 100%;
+    background-image: url(@/assets/images/maleta.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    flex: 1 1 100%;
+    display: table;
+    margin: 0 auto 40px;
+    max-width: 400px;
+    padding: 2rem;
+    position: relative;
+    width: 100%;
+}
+
+.list-title {
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.list-item {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.checked {
+    text-decoration: line-through;
 }
 </style>
