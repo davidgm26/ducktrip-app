@@ -1,5 +1,6 @@
 <template>
     <div class="game">
+        <div class="instructions">Usa las flechas para mover el avión</div>
         <div class="entity destiny"></div>
         <div class="entity player" :style="{ left: playerX + 'px', top: playerY + 'px' }"></div>
         <div class="game-finished" v-if="isPlayerAtLocation">¡Lo has conseguido!</div>
@@ -56,6 +57,13 @@ export default {
     border-radius: 2rem;
     background-image: url('@/assets/images/error-page-mapa-mundi.png');
     background-size: cover;
+}
+
+.instructions {
+    position: absolute;
+    color: rgb(127, 127, 127);
+    top: 0.5rem;
+    left: 1rem;
 }
 
 .entity {
