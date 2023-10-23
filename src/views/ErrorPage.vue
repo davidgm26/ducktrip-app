@@ -2,7 +2,10 @@
     <NavigationTopBar />
 
     <main class="error-container">
-        <PlaneGame />
+        <div class="plane-game">
+            <PlaneGame />
+        </div>
+        <img src="@/assets/images/error-page-mapa-mundi.png" alt="Mapa Mundi" class="map" />
 
         <div class="error-text">
             <h1 class="error-title">Lo sentimos, parece que el avión nos ha llevado a un destino equivocado.</h1>
@@ -30,6 +33,24 @@ export default {
     width: 100%;
     min-height: 100vh;
     padding: 3rem 2rem;
+}
+
+.map {
+    display: none;
+    width: 100%;
+    background-color: #f5f5dc;
+    box-shadow: 0px 4px 4px #00000040;
+    border-radius: 2rem;
+}
+
+@media (max-width: 800px) {
+    .map {
+        display: block;
+    }
+
+    .plane-game {
+        display: none;
+    }
 }
 
 .error-text {
