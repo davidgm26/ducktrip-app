@@ -144,15 +144,17 @@
                 importantes, como pasaportes y reservas de hotel, en caso de pérdida o robo.</p>
         </section>
     </main>
+    <ButtonToTop />
 </template>
 
 <script>
 import NavigationTopBar from '../components/NavigationTopBar.vue';
 import ProgressBar from '../components/ProgressBar.vue';
+import ButtonToTop from '../components/ButtonToTop.vue';
 
 export default {
     name: 'TipsPage',
-    components: { NavigationTopBar, ProgressBar },
+    components: { NavigationTopBar, ProgressBar, ButtonToTop },
     data() {
         return {
             listaMaleta: [
