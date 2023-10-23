@@ -1,12 +1,12 @@
 import { getToken } from "./getFlights";
 
 export async function getFamousPlaces() {
+  localStorage.clear(token)
     let token = localStorage.getItem("token");
-    console.log(token)
     if (!token) {
       const newToken = await getToken();
       token = newToken;
-      localStorage.setItem("token", newToken);
+      localStorage.setItem("token", token);
     }
     const options = {
       method: "GET",
@@ -20,7 +20,6 @@ export async function getFamousPlaces() {
       const data = await res.json();
       console.log(localStorage.getItem('token'))
       console.log("data", data);
-
       // if (
       //   data &&
       //   data.errors &&
