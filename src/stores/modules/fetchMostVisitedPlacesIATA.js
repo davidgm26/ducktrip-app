@@ -1,7 +1,6 @@
 import { getToken } from "./getFlights";
 
 export async function getFamousPlaces() {
-  localStorage.clear(token)
     let token = localStorage.getItem("token");
     if (!token) {
       const newToken = await getToken();
@@ -14,12 +13,11 @@ export async function getFamousPlaces() {
         Authorization: `Bearer ${token}`,
       },
     };
-    const BASE_URL = "https://test.api.amadeus.com/v1/travel/analytics/air-traffic/traveled?max=10&originCityCode=MAD&page%5Blimit%5D=10&page%5Boffset%5D=0&period=2017-01&sort=analytics.travelers.score"
+    const BASE_URL = "https://test.api.amadeus.com/v1/travel/analytics/air-traffic/traveled?max=5&originCityCode=MAD&page%5Blimit%5D=5&page%5Boffset%5D=0&period=2017-01&sort=analytics.travelers.score"
     try {
       const res = await fetch(BASE_URL, options);
       const data = await res.json();
-      console.log(localStorage.getItem('token'))
-      console.log("data", data);
+      console.log("data", data.data);
       // if (
       //   data &&
       //   data.errors &&
@@ -38,7 +36,7 @@ export async function getFamousPlaces() {
         localStorage.setItem("token", "");
         return "El token ha expirado";
       }
-      return data;
+      return data.data;
     } catch (err) {
       console.log(err);
       return "Error al encontrar vuelos";

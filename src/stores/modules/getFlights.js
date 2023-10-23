@@ -34,7 +34,7 @@ export async function getFlights(
   const options = {
     method: "GET",
     headers: {
-      Authorization: `Bearer YfzzAeB8dj1wSWVTCbx6GwSe2x5y`,
+      Authorization: `Bearer ${token}`,
     },
   };
   const maxFlights = 10;
@@ -81,7 +81,7 @@ export async function suggestLocation(location) {
       Authorization: `Bearer ${token}`,
     },
   };
-  const BASE_URL = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT,CITY&keyword=${location}&page%5Blimit%5D=10&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`;
+  const BASE_URL = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT,CITY&keyword=${location}&page%5Blimit%5D=1&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`;
   try {
     const res = await fetch(BASE_URL, options);
     const data = await res.json();
@@ -95,7 +95,7 @@ export async function suggestLocation(location) {
       localStorage.setItem("token", "");
       return "El token ha expirado";
     }
-    return data;
+    return data.data;
   } catch (err) {
     console.log(err);
     return "No hay ninguna coicidencia";

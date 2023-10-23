@@ -1,41 +1,30 @@
 <template>
     <div class="card-container">
-        <div class="card" v-for="(place, index) in  places " :key="index"
-            v-bind:style="{ backgroundImage: 'url(' + place.image + ')' }">
-            <div class="place-info">
-                {{ place.city }}
-                <img :src="place.countryFlag" :alt="place.city">
-            </div>
+        <div class="card" v-for="(place, index) in places" :key="index" :style="{ backgroundImage: `url(${place.image})` }">
+            <p>{{ place.name }}</p>
         </div>
     </div>
 </template>
 
 <script>
-import SpainFlag from '../assets/images/Flags/SpainFlag.png'
-import FranceFlag from '../assets/images/Flags/FranceFlag.svg'
-import Sevilla from '../assets/images/Cities/sevilla.jpg'
-import Teide from '../assets/images/Cities/tenerife.png'
-import Cordoba from '../assets/images/Cities/cordoba.jpg'
-import Paris from '../assets/images/Cities/paris.jpg'
-import { getFamousPlaces } from '../stores/modules/getFamousPlaces'
-
+import { getMostVisitedPlaces } from '../stores/modules/getMostVisitedPlaces'
 
 export default {
     name: 'FamousPlaces',
     data() {
         return {
-            places: []
+            places: [],
+
         }
     },
     methods: {
         async getSitiosFamosos() {
-            this.places = await getFamousPlaces()
-            console.log(this.places)
-
+            this.places = await getMostVisitedPlaces();
+            console.log('adios', this.places);
         }
     },
-    mounted() {
-        this.getSitiosFamosos()
+    async mounted() {
+        await this.getSitiosFamosos()
     }
 
 }
@@ -45,7 +34,7 @@ export default {
 .card-container {
     margin: 15px;
     min-height: 380px;
-    display: flex;
+    display: grid;
     gap: 14px;
     flex-direction: row;
 }
@@ -57,6 +46,10 @@ export default {
     flex-direction: row;
     margin: 3px;
     border-radius: 50px;
+    height: 500px;
+    background-size: cover;
+    border: 1px red solid;
+
 
     & .place-info {
         width: 100%;
