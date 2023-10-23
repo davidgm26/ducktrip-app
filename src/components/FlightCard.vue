@@ -10,7 +10,7 @@
         <div class="info">
             <div class="flight-duration">
                 <h1>
-                    Duración del vuelo: {{ formatDuration(FlightsOffers.data[index].itineraries[0].duration) }}
+                    {{ formatDuration(FlightsOffers.data[index].itineraries[0].duration) }}
                 </h1>
             </div>
             <div class="departures-arrivals">
@@ -50,6 +50,7 @@ export default {
         return {
             FlightsOffers: "",
             AirlineLogo: [],
+            getFlightsOffers: {}
         }
     },
 
@@ -96,7 +97,8 @@ export default {
 
     async mounted() {
         this.FlightsOffers = await getFlights(this.departureIata, this.arrivalIata, this.departureDate, this.adult)
-        console.log(this.FlightsOffers);
+        localStorage.setItem('FlightsOffers', JSON.stringify(this.FlightsOffers))
+        this.getFlightsOffers = localStorage.getItem('FlightsOffers')
 
     }
 

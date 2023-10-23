@@ -10,33 +10,37 @@
             <div class="nav-options">
                 <div class="option-wrapper">
                     <label class="nav-info">Desde {{ departureIata }}</label>
-                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" @input="departureCheck"
-                        @focus="toggleDropdownLocation" :value="departureIata">
-                    {{ OriginIataCity }}
+                    <input v-debounce:500ms="getSuggestion" class="nav-description" placeholder="País, ciudad o aeropuerto"
+                        @input="updateFlight" @focus="toggleDropdownLocation" :value="departureIata">
 
-                    <DropDownLocation :isVisible=isDropdownOpenLocation :suggestion=suggestion />
+                    <DropDownLocation :isVisible="showDropDownLocation" :suggestion=suggestionDeparture
+                        :setIsVisible=setDropDownLocationVisibility />
                 </div>
                 <div class="option-wrapper">
                     <label class="nav-info">A {{ arrivalIata }}</label>
-                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="DestinyIataCity"
-                        @input="uptdateArrivalIata">
+                    <input v-debounce:500ms="getSuggestionArrival" class="nav-description"
+                        placeholder="País, ciudad o aeropuerto" @input="uptdateArrivalIata" @focus="toggleDropdownArrival"
+                        :value="arrivalIata">
+                    <DropDownArrival :isVisible="showDropDownArrival" :suggestion=suggestionArrival
+                        :setIsVisible=setDropDownArrivalVisibility />
                 </div>
+
+
                 <div class=" option-wrapper">
                     <label class="nav-info">Ida {{ departureDate }}</label>
-                    <input class="nav-description" type="date" v-model="OriginDate" @input="updateDepartureDate">
-                    {{ OriginDate }}
+                    <input class="nav-description" type="date" @input="updateDepartureDate">
                 </div>
-                <div class="option-wrapper">
+                <!-- <div class="option-wrapper">
                     <label class="nav-info">Vuelta</label>
                     <input class="nav-description" type="date">
-                </div>
+                </div> -->
                 <div class="option-wrapper">
 
                     <label class="nav-info" @click="toggleDropdown">Viajeros</label>
                     <span class="nav-description" @click="toggleDropdown">
                         {{ adult }} adultos
                     </span>
-                    <DropDown :isVisible=isDropdownOpen :adultCount=adultCount :incrementAdults=incrementAdults
+                    <DropDown :isVisible=isDropdownOpen :adultCount=adult :incrementAdults=incrementAdultCount
                         :decrementAdults=decrementAdults :onReadyClick=handleReadyClick />
                 </div>
             </div>
@@ -51,26 +55,29 @@ import { flightSearchStore } from "../../stores/counter.js"
 import { mapActions, mapState } from "pinia";
 import DropDown from "./components/DropDown/DropDown.vue"
 import DropDownLocation from "./components/DropDown/DropDownLocation.vue";
+import { vue3Debounce } from 'vue-debounce'
+import DropDownArrival from "./components/DropDown/DropDownArrival.vue"
 export default {
     components: {
         DropDown,
-        DropDownLocation
+        DropDownLocation,
+        DropDownArrival
     },
     data() {
         return {
 
             isDropdownOpen: false,
             isDropdownOpenLocation: false,
+            isDropdownOpenArrival: false,
             dataFromDropDown: "",
-            adultCount: 1,
-            OriginIataCity: "",
-            DestinyIataCity: "",
             FlightsOffers: "",
             AirlineLogo: [],
-            OriginDate: "",
-            DestinyDate: "",
-            suggestion: {},
+            suggestionDeparture: {},
+            suggestionArrival: {}
         };
+    },
+    directives: {
+        debounce: vue3Debounce({})
     },
     computed: {
         ...mapState(flightSearchStore, [
@@ -78,7 +85,13 @@ export default {
             'arrivalIata',
             'departureDate',
             'adult',
-        ])
+        ]),
+        showDropDownLocation() {
+            return this.isDropdownOpenLocation && !!this.departureIata.length
+        },
+        showDropDownArrival() {
+            return this.isDropdownOpenArrival && !!this.arrivalIata.length
+        }
     },
     methods: {
         updateFlight(e) {
@@ -94,17 +107,6 @@ export default {
         toggleDropdown() {
             this.isDropdownOpen = !this.isDropdownOpen;
         },
-        toggleDropdownLocation() {
-            this.isDropdownOpenLocation = !this.isDropdownOpenLocation;
-        },
-        incrementAdults() {
-            this.adultCount++;
-            this.setadultCount(this.adultCount)
-        },
-        decrementAdults() {
-            this.adultCount = Math.max(this.adultCount - 1, 1);
-            this.setadultCount(this.adultCount)
-        },
         receiveDataFromDropDown(data) {
             this.dataFromDropDown = data;
         },
@@ -113,13 +115,24 @@ export default {
         },
         // end of DropDown functions
         async getSuggestion() {
-            this.suggestion = await suggestLocation(this.departureIata)
+            this.suggestionDeparture = this.departureIata.length && await suggestLocation(this.departureIata)
         },
-        departureCheck(e) {
-            this.updateFlight(e)
-            this.getSuggestion()
+        async getSuggestionArrival() {
+            this.suggestionArrival = this.departureIata.length && await suggestLocation(this.arrivalIata)
         },
-        ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'setadultCount']),
+        toggleDropdownLocation() {
+            this.isDropdownOpenLocation = !this.isDropdownOpenLocation;
+        },
+        setDropDownLocationVisibility(newVisibility) {
+            this.isDropdownOpenLocation = newVisibility
+        },
+        toggleDropdownArrival() {
+            this.isDropdownOpenArrival = !this.isDropdownOpenArrival;
+        },
+        setDropDownArrivalVisibility(newVisibility) {
+            this.isDropdownOpenArrival = newVisibility
+        },
+        ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'incrementAdultCount', 'decrementAdults']),
     }
 }
 

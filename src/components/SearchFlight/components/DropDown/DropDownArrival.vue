@@ -1,6 +1,5 @@
 <template>
     <div v-if="isVisible" class="dropdown">
-
         <div class="iata-suggestion-container" v-for="(suggestion, index) in suggestion.data" :key="index">
             <p class="iata-suggestion" @click="selectSuggestion(suggestion.iataCode)">{{ suggestion.detailedName }} | {{
                 suggestion.iataCode
@@ -32,7 +31,7 @@ export default {
 
         selectSuggestion(iataCode) {
             console.log(iataCode);
-            this.setdepartureIata(iataCode);
+            this.setarrivalIata(iataCode);
             this.setIsVisible(false)
         },
         ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'setadultCount']),
