@@ -61,9 +61,12 @@ export default {
 
 .instructions {
     position: absolute;
-    color: rgb(127, 127, 127);
+    color: rgb(36, 36, 36);
+    text-shadow: 0px 4px 4px #00000040;
     top: 0.5rem;
-    left: 1rem;
+    text-align: center;
+    width: 100%;
+    font-size: 1.2rem;
 }
 
 .entity {
