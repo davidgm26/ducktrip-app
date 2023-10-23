@@ -3,6 +3,7 @@ import HomePage from "../views/HomePage.vue";
 import FlightPage from "../views/FlightPage.vue";
 import AboutPage from "../views/AboutPage.vue";
 import TipsPage from "../views/TipsPage.vue";
+import ErrorPage from "../views/ErrorPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: "/tips",
       name: "tips",
       component: TipsPage,
+    },
+    {
+      path: "/:catchAll(.*)",
+      name: "error",
+      component: ErrorPage,
     },
   ],
 });
