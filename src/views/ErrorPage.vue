@@ -4,10 +4,9 @@
     <main class="error-container">
         <PlaneGame />
 
-
         <div class="error-text">
             <h1 class="error-title">Lo sentimos, parece que el avión nos ha llevado a un destino equivocado.</h1>
-            <h1 class="error-title">¡Recalculando...!</h1>
+            <h2 class="error-title">¡Recalculando...!</h2>
             <p class="error-back">Dirígete a la <a class="back-home" href="/">página de inicio</a> para configurar el
                 destino
                 perfecto para ti</p>
@@ -37,14 +36,15 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1.5rem;
+    padding: 3rem 0;
 }
 
 .error-title {
     color: #00307A;
     text-shadow: 0px 4px 4px #00000040;
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -54,7 +54,7 @@ export default {
     color: #3E86F5;
     text-shadow: 0px 4px 4px #00000040;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
