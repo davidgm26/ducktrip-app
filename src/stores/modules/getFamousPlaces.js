@@ -11,7 +11,7 @@ export async function getFamousPlaces() {
     const options = {
       method: "GET",
       headers: {
-        Authorization: `Bearer r0cPpK6vGIR9J3W2BLNcn9rHwEGI`,
+        Authorization: `Bearer ${token}`,
       },
     };
     const BASE_URL = "https://test.api.amadeus.com/v1/travel/analytics/air-traffic/traveled?max=10&originCityCode=MAD&page%5Blimit%5D=10&page%5Boffset%5D=0&period=2017-01&sort=analytics.travelers.score"
