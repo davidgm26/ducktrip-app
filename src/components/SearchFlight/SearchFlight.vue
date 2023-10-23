@@ -9,17 +9,22 @@
         <div class="nav-form">
             <div class="nav-options">
                 <div class="option-wrapper">
-                    <label class="nav-info">Desde</label>
-                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="OriginIataCity">
+                    <label class="nav-info">Desde {{ departureIata }}</label>
+                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" @input="departureCheck"
+                        @focus="toggleDropdownLocation" :value="departureIata">
                     {{ OriginIataCity }}
+
+                    <DropDownLocation :isVisible=isDropdownOpenLocation :suggestion=suggestion />
                 </div>
                 <div class="option-wrapper">
-                    <label class="nav-info">A</label>
-                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="DestinyIataCity">
+                    <label class="nav-info">A {{ arrivalIata }}</label>
+                    <input class="nav-description" placeholder="País, ciudad o aeropuerto" v-model="DestinyIataCity"
+                        @input="uptdateArrivalIata">
                 </div>
-                <div class="option-wrapper">
-                    <label class="nav-info">Ida</label>
-                    <input class="nav-description" type="date">
+                <div class=" option-wrapper">
+                    <label class="nav-info">Ida {{ departureDate }}</label>
+                    <input class="nav-description" type="date" v-model="OriginDate" @input="updateDepartureDate">
+                    {{ OriginDate }}
                 </div>
                 <div class="option-wrapper">
                     <label class="nav-info">Vuelta</label>
@@ -29,7 +34,7 @@
 
                     <label class="nav-info" @click="toggleDropdown">Viajeros</label>
                     <span class="nav-description" @click="toggleDropdown">
-                        {{ adultCount }} adultos
+                        {{ adult }} adultos
                     </span>
                     <DropDown :isVisible=isDropdownOpen :adultCount=adultCount :incrementAdults=incrementAdults
                         :decrementAdults=decrementAdults :onReadyClick=handleReadyClick />
@@ -38,47 +43,67 @@
             <button class="search" @click="getData">Buscar</button>
         </div>
     </div>
-    <!-- borrar esto -> -->
-    <div v-for="(Fligths, index) in FlightsOffers.data" :key="Fligths" class="PRUEBA" style="background-color: grey;">
-        <h1>Vuelo nº{{ index + 1 }}</h1>
-        <img :src="AirlineLogo[index]" alt="">
-        <p>numeros de asientos disponibles: {{ FlightsOffers.data[0].numberOfBookableSeats }}</p>
-        <p>Precio: {{ FlightsOffers.data[index].price.total + FlightsOffers.data[0].price.currency }}</p>
-
-    </div>
 </template>
 
 <script>
-import { getFlights } from "../../stores/modules/getFlights.js"
-import { getAirlineLogo } from "../../stores/modules/getAirlineLogo.js"; // Asegúrate de usar la ruta correcta
-
-
+import { suggestLocation } from "../../stores/modules/getFlights.js"
+import { flightSearchStore } from "../../stores/counter.js"
+import { mapActions, mapState } from "pinia";
 import DropDown from "./components/DropDown/DropDown.vue"
+import DropDownLocation from "./components/DropDown/DropDownLocation.vue";
 export default {
     components: {
-        DropDown
+        DropDown,
+        DropDownLocation
     },
     data() {
         return {
 
             isDropdownOpen: false,
+            isDropdownOpenLocation: false,
             dataFromDropDown: "",
             adultCount: 1,
             OriginIataCity: "",
             DestinyIataCity: "",
             FlightsOffers: "",
-            AirlineLogo: []
+            AirlineLogo: [],
+            OriginDate: "",
+            DestinyDate: "",
+            suggestion: {},
         };
     },
+    computed: {
+        ...mapState(flightSearchStore, [
+            'departureIata',
+            'arrivalIata',
+            'departureDate',
+            'adult',
+        ])
+    },
     methods: {
+        updateFlight(e) {
+            this.setdepartureIata(e.target.value)
+        },
+        uptdateArrivalIata(e) {
+            this.setarrivalIata(e.target.value);
+        },
+        updateDepartureDate(e) {
+            this.setdepartureDate(e.target.value);
+        },
+        // DropDown functions
         toggleDropdown() {
             this.isDropdownOpen = !this.isDropdownOpen;
         },
+        toggleDropdownLocation() {
+            this.isDropdownOpenLocation = !this.isDropdownOpenLocation;
+        },
         incrementAdults() {
             this.adultCount++;
+            this.setadultCount(this.adultCount)
         },
         decrementAdults() {
             this.adultCount = Math.max(this.adultCount - 1, 1);
+            this.setadultCount(this.adultCount)
         },
         receiveDataFromDropDown(data) {
             this.dataFromDropDown = data;
@@ -86,20 +111,15 @@ export default {
         handleReadyClick() {
             this.isDropdownOpen = false;
         },
-        async getData() {
-            this.FlightsOffers = await getFlights(this.OriginIataCity, this.DestinyIataCity)
-            console.log(this.FlightsOffers);
-
-            this.AirlineLogo = await Promise.all(this.FlightsOffers.data.map(async (flight) => {
-                const airlineCode = flight.validatingAirlineCodes[0]
-                console.log(flight.validatingAirlineCodes[0]);
-                const airlineInfo = await getAirlineLogo(airlineCode)
-                if (airlineInfo && airlineInfo.length > 0 && airlineInfo[0].logo_url) {
-                    return airlineInfo[0].logo_url
-                }
-            }));
-            console.log(this.AirlineLogo);
-        }
+        // end of DropDown functions
+        async getSuggestion() {
+            this.suggestion = await suggestLocation(this.departureIata)
+        },
+        departureCheck(e) {
+            this.updateFlight(e)
+            this.getSuggestion()
+        },
+        ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'setadultCount']),
     }
 }
 

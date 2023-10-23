@@ -1,29 +1,36 @@
 <template>
     <div v-if="isVisible" class="dropdown">
-        <div class="dropdown-elements">
-            <div class="dropdown-row">
-                <p class="dropdown-adults">Adultos</p>
-                <div class="dropdown-counter">
-                    <button class="dropdown-negative" @click="decrementAdults">-</button>
-                    <span class="dropdown-info">{{ adultCount }}</span>
-                    <button class="dropdown-positive" @click="incrementAdults">+</button>
-                </div>
-            </div>
-            <button class="dropdown-ready" @click="onReadyClick">Listo</button>
+        <div v-for="(suggestion, index) in suggestion.data" :key="index">
+            <button @click="selectSuggestion(suggestion.iataCode)">{{ suggestion.detailedName }} | {{ suggestion.iataCode
+            }}</button>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'pinia'
+import { flightSearchStore } from '../../../../stores/counter';
+
 export default {
     props: {
         isVisible: Boolean,
-        adultCount: Number,
-        incrementAdults: Function,
-        decrementAdults: Function,
-        onReadyClick: Function,
-        updateAdult: Function
+        suggestion: Object
     },
+    computed: {
+        ...mapState(flightSearchStore, [
+            'departureIata',
+            'arrivalIata',
+            'departureDate',
+            'adult',
+        ])
+    },
+    methods: {
+        selectSuggestion(iataCode) {
+            console.log(iataCode);
+            this.setdepartureIata(iataCode);
+        },
+        ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'setadultCount']),
+    }
 };
 
 
