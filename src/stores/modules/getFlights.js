@@ -81,7 +81,7 @@ export async function suggestLocation(location) {
       Authorization: `Bearer ${token}`,
     },
   };
-  const BASE_URL = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT,CITY&keyword=${location}&page%5Blimit%5D=1&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`;
+  const BASE_URL = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT,CITY&keyword=${location}&page%5Blimit%5D=10&page%5Boffset%5D=0&sort=analytics.travelers.score&view=FULL`;
   try {
     const res = await fetch(BASE_URL, options);
     const data = await res.json();
