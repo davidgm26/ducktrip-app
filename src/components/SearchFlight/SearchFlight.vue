@@ -22,8 +22,9 @@
 
 
                 <div class=" option-wrapper">
-                    <label class="nav-info">Ida {{ departureDate }}</label>
-                    <input class="nav-description" type="date" @input="updateDepartureDate">
+                    <label class="nav-info">Ida {{ trialDate ? formatDate(trialDate) : '' }}</label>
+                    <VueDatePicker v-model="trialDate" :format="formatDate"></VueDatePicker>
+                    <!-- <input class="nav-description" type="date" @input="updateDepartureDate"> -->
                 </div>
                 <div class="option-wrapper">
                     <label class="nav-info">Vuelta</label>
@@ -39,7 +40,8 @@
                         :decrementAdults=decrementAdults :onReadyClick=handleReadyClick />
                 </div>
             </div>
-            <router-link to="/flights"><button class="search" @click="getData">Buscar</button></router-link>
+            <router-link class="search" to="/flights">Buscar</router-link>
+
 
         </div>
     </div>
@@ -53,11 +55,15 @@ import DropDown from "./components/DropDown/DropDown.vue"
 import DropDownLocation from "./components/DropDown/DropDownLocation.vue";
 import { vue3Debounce } from 'vue-debounce'
 import DropDownArrival from "./components/DropDown/DropDownArrival.vue"
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 export default {
     components: {
         DropDown,
         DropDownLocation,
-        DropDownArrival
+        DropDownArrival,
+        VueDatePicker
     },
     data() {
         return {
@@ -69,7 +75,8 @@ export default {
             FlightsOffers: "",
             AirlineLogo: [],
             suggestionDeparture: {},
-            suggestionArrival: {}
+            suggestionArrival: {},
+            trialDate: ""
         };
     },
     directives: {
@@ -96,9 +103,10 @@ export default {
         uptdateArrivalIata(e) {
             this.setarrivalIata(e.target.value);
         },
-        updateDepartureDate(e) {
-            this.setdepartureDate(e.target.value);
-        },
+        // updateDepartureDate(e) {
+        //     this.setdepartureDate(e);
+        // },
+
         // DropDown functions
         toggleDropdown() {
             this.isDropdownOpen = !this.isDropdownOpen;
@@ -129,6 +137,14 @@ export default {
         setDropDownArrivalVisibility(newVisibility) {
             this.isDropdownOpenArrival = newVisibility
         },
+        formatDate(date) {
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            const formatedDate = `${year}-${month}-${day}`;
+            this.setdepartureDate(formatedDate)
+            return formatedDate;
+        },
         ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'incrementAdultCount', 'decrementAdults']),
     }
 }
@@ -136,6 +152,13 @@ export default {
 </script>
 
 <style>
+:root {
+    --dp-border-radius: 0px;
+    --dp-background-color: #d9e2f2;
+}
+
+.dp__theme_light {}
+
 .nav {
     background-color: #1b55b0;
     width: 100%;
@@ -198,20 +221,50 @@ export default {
     border-radius: 0 0.5rem 0.5rem 0;
 }
 
+.search {
+    border-radius: 10px;
+    background: rgb(0, 32, 72);
+    color: #FFFFFF;
+    border: none;
+    font-size: 26px;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.1s ease-in;
+
+    &:hover {
+        background: #FFFFFF;
+        color: rgb(0, 32, 72);
+    }
+}
+
+
+
 .nav-info {
     color: #393838;
     text-shadow: 0px 4px 4px #00000040;
 }
 
 .nav-description {
-    background-color: transparent;
-    border: none;
+    padding: 0.5rem;
+    background-color: #FFFFFF;
+    border: 1px solid #ddd;
     color: #393838;
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1rem;
+    transition: all 0.1s ease-in;
+
+    &:hover {
+        border: 1px solid #aaaeb7;
+    }
+
+    &:focus {
+        outline: none;
+    }
 }
 
-.search {
+.nav-description:hov .search {
     border-radius: 10px;
     background: rgba(0, 33, 72, 0.50);
     color: #FFFFFF;
@@ -219,6 +272,7 @@ export default {
     font-size: 26px;
     padding: 0 1rem;
 }
+
 
 
 @media (max-width: 1028px) {

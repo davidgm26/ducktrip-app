@@ -51,7 +51,7 @@ export default {
 <style>
 .dropdown {
     position: absolute;
-    top: 70px;
+    top: 80px;
     left: 0;
     background-color: #ffffff;
     border: 1px solid #ccc;
