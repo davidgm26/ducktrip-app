@@ -3,7 +3,6 @@
         <div class="top-side">
             <div>
                 <router-link to="/" class="logo">
-                    <p class="name">DUCKTRIP</p>
                     <img src="../assets/icons/logo.svg" alt="logo">
                 </router-link>
 
@@ -12,8 +11,6 @@
                 <router-link to="/about" class="button">About</router-link>
                 <router-link to="/flights" class="button">Vuelos</router-link>
                 <router-link to="/tips" class="button">Tips</router-link>
-                <!-- <router-link to="/" class="button">Tiempo</router-link> -->
-                <!-- <router-link to="/" class="button">Hoteles</router-link> -->
             </div>
         </div>
         <div class="bottom-side">
@@ -79,7 +76,7 @@ export default {
             text-decoration: none;
 
             & img {
-                max-width: 30px;
+                max-width: 120px;
             }
         }
     }
