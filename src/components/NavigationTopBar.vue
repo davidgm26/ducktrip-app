@@ -4,7 +4,7 @@
             <div>
                 <router-link to="/" class="logo">
                     <p class="name">DUCKTRIP</p>
-                    <img src="../assets/icons/logo.svg" alt="logo">
+                    <img src="../assets/images/logo.svg" alt="logo">
                 </router-link>
 
             </div>
