@@ -3,7 +3,8 @@
         <div class="top-side">
             <div>
                 <router-link to="/" class="logo">
-                    <img src="../assets/icons/logo.svg" alt="logo">
+                    <p class="name">DUCKTRIP</p>
+                    <img src="../assets/images/logo.svg" alt="logo">
                 </router-link>
 
             </div>
