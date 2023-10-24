@@ -1,11 +1,15 @@
 <template>
-    Origen: {{ departureIata }} || Destino: {{ arrivalIata }} || Fecha de salida: {{ departureDate }}
+    <div class="actual-info-container">
+        <p>Origen: {{ departureIata }}</p>
+        <p>Destino: {{ arrivalIata }}</p>
+        <p>Fecha: {{ departureDate }}</p>
+        <p>Nº de Adultos: {{ adult }}</p>
+    </div>
     <div class="container" v-for="(Fligths, index) in FlightsOffers.data" :key="Fligths">
         <div class="airline-logo">
             iata de aerolinea: {{ FlightsOffers.data[index].validatingAirlineCodes[0] }}
             <img :src="`https://daisycon.io/images/airline/?width=900&iata=${FlightsOffers.data[index].validatingAirlineCodes[0]}`"
                 alt="" srcset="">
-            <!-- src="https://www.consumoteca.com/wp-content/uploads/Vueling-logo.jpg" -->
         </div>
         <div class="info">
             <div class="flight-duration">
@@ -106,7 +110,7 @@ export default {
 </script>
 <style scoped>
 .container {
-    width: 80%;
+    width: 40%;
     height: 5%;
     background-color: #D8E7FD;
     border-radius: 50px;
@@ -115,6 +119,26 @@ export default {
     margin-top: 16px;
     flex-direction: row;
 }
+
+.actual-info-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #002148;
+    height: 50px;
+    position: sticky;
+    top: 0;
+
+    & p {
+        display: flex;
+        justify-content: center;
+        background-color: #3E86F5;
+        width: 9rem;
+        border-radius: 4px;
+    }
+}
+
+
 
 .airline-logo {
     width: 30%;

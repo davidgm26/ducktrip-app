@@ -1,11 +1,6 @@
 <template>
     <div class="nav">
-        <h3 class="nav-tittle">Millones de Vuelos, Hoteles al mejor precio</h3>
-        <div class="buttons-container">
-            <button class="nav-button">Vuelos</button>
-            <button class="nav-button">Hoteles</button>
-            <button class="nav-button">Tiempo</button>
-        </div>
+        <h3 class="nav-tittle">Millones de Vuelos al mejor precio</h3>
         <div class="nav-form">
             <div class="nav-options">
                 <div class="option-wrapper">
@@ -30,10 +25,10 @@
                     <label class="nav-info">Ida {{ departureDate }}</label>
                     <input class="nav-description" type="date" @input="updateDepartureDate">
                 </div>
-                <!-- <div class="option-wrapper">
+                <div class="option-wrapper">
                     <label class="nav-info">Vuelta</label>
                     <input class="nav-description" type="date">
-                </div> -->
+                </div>
                 <div class="option-wrapper">
 
                     <label class="nav-info" @click="toggleDropdown">Viajeros</label>
@@ -44,7 +39,8 @@
                         :decrementAdults=decrementAdults :onReadyClick=handleReadyClick />
                 </div>
             </div>
-            <button class="search" @click="getData">Buscar</button>
+            <router-link to="/flights"><button class="search" @click="getData">Buscar</button></router-link>
+
         </div>
     </div>
 </template>
