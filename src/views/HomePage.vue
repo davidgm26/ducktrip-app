@@ -1,10 +1,13 @@
 <template>
     <NavigationTopBar />
     <div>
-        <SearchFlight />
+        <div>
+            <SearchFlight />
+        </div>
+        <FamousPlaces />
+        <ProgressBar />
+        <ButtonToTop />
     </div>
-    <FamousPlaces />
-    <ProgressBar />
     <FooterSection />
 </template>
 <script>
@@ -12,6 +15,7 @@ import FamousPlaces from '../components/FamousPlaces.vue';
 import NavigationTopBar from '../components/NavigationTopBar.vue';
 import SearchFlight from '../components/SearchFlight/SearchFlight.vue';
 import ProgressBar from '../components/ProgressBar.vue';
+import ButtonToTop from '../components/ButtonToTop.vue';
 import FooterSection from '../components/FooterSection.vue';
 
 export default {
@@ -21,6 +25,7 @@ export default {
         SearchFlight,
         FamousPlaces,
         ProgressBar,
+        ButtonToTop,
         FooterSection
     }
 }
