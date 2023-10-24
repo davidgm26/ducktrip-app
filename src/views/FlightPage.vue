@@ -3,7 +3,7 @@
     <div>
         <FlightCard />
     </div>
-    <FooterSection style="position: fixed;" />
+    <FooterSection style="position: fixed; bottom: 0;" />
 </template>
 <script>
 import FlightCard from '../components/FlightCard.vue';
