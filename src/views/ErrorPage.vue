@@ -15,15 +15,17 @@
                 perfecto para ti</p>
         </div>
     </main>
+    <FooterSection />
 </template>
 
 <script>
+import FooterSection from '../components/FooterSection.vue';
 import NavigationTopBar from '../components/NavigationTopBar.vue';
 import PlaneGame from '../components/PlaneGame.vue';
 
 export default {
     name: 'ErrorPage',
-    components: { NavigationTopBar, PlaneGame },
+    components: { NavigationTopBar, PlaneGame, FooterSection },
 }
 </script>
 

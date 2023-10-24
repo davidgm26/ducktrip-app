@@ -1,33 +1,52 @@
 <template>
     <div v-if="isVisible" class="dropdown">
-        <div class="dropdown-elements">
-            <div class="dropdown-row">
-                <p class="dropdown-adults">Adultos</p>
-                <div class="dropdown-counter">
-                    <button class="dropdown-negative" @click="decrementAdults">-</button>
-                    <span class="dropdown-info">{{ adultCount }}</span>
-                    <button class="dropdown-positive" @click="incrementAdults">+</button>
-                </div>
+        <div class="iata-suggestion-container" v-for="(suggestion, index) in suggestion" :key="index">
+            <div class="iata-suggestion" @click="selectSuggestion(suggestion.iataCode)">
+                <p class="first-p">{{ suggestion.name }} ({{ suggestion.iataCode }})</p>
             </div>
-            <button class="dropdown-ready" @click="onReadyClick">Listo</button>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'pinia'
+import { flightSearchStore } from '../../../../stores/counter';
+
 export default {
+    data() {
+        return {
+            suggestionVisibility: true
+        }
+    },
     props: {
         isVisible: Boolean,
-        adultCount: Number,
-        incrementAdults: Function,
-        decrementAdults: Function,
-        onReadyClick: Function,
-        updateAdult: Function
+        suggestion: Object,
+        setIsVisible: Function,
     },
+    computed: {
+        ...mapState(flightSearchStore, [
+            'departureIata',
+            'arrivalIata',
+            'departureDate',
+            'adult',
+        ])
+    },
+    methods: {
+
+        selectSuggestion(iataCode) {
+
+            console.log(iataCode);
+            this.setarrivalIata(iataCode);
+            this.setIsVisible(false)
+        },
+
+        ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'setadultCount']),
+    }
 };
 
 
 </script>
+
 
 <style>
 .dropdown {
@@ -102,5 +121,28 @@ export default {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     background-color: transparent;
+}
+
+.iata-suggestion-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 15vw;
+
+}
+
+.iata-suggestion {
+    width: 100%;
+    display: flex;
+    cursor: pointer;
+    color: #1b55b0;
+    padding: 10px;
+    border-radius: 0.5rem;
+
+
+}
+
+.iata-suggestion:hover {
+    background-color: #1b54b02a;
 }
 </style>

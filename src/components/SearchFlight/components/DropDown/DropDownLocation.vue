@@ -1,8 +1,9 @@
 <template>
     <div v-if="isVisible" class="dropdown">
-        <div v-for="(suggestion, index) in suggestion.data" :key="index">
-            <button @click="selectSuggestion(suggestion.iataCode)">{{ suggestion.detailedName }} | {{ suggestion.iataCode
-            }}</button>
+        <div class="iata-suggestion-container" v-for="(suggestion, index) in suggestion" :key="index">
+            <div class="iata-suggestion" @click="selectSuggestion(suggestion.iataCode)">
+                <p class="first-p">{{ suggestion.name }} ({{ suggestion.iataCode }})</p>
+            </div>
         </div>
     </div>
 </template>
@@ -12,9 +13,11 @@ import { mapState, mapActions } from 'pinia'
 import { flightSearchStore } from '../../../../stores/counter';
 
 export default {
+
     props: {
         isVisible: Boolean,
-        suggestion: Object
+        suggestion: Object,
+        setIsVisible: Function,
     },
     computed: {
         ...mapState(flightSearchStore, [
@@ -25,9 +28,12 @@ export default {
         ])
     },
     methods: {
+
         selectSuggestion(iataCode) {
             console.log(iataCode);
+            console.log('suggestion', this.suggestion)
             this.setdepartureIata(iataCode);
+            this.setIsVisible(false)
         },
         ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'setadultCount']),
     }
@@ -36,10 +42,11 @@ export default {
 
 </script>
 
+
 <style>
 .dropdown {
     position: absolute;
-    top: 70px;
+    top: 80px;
     left: 0;
     background-color: #ffffff;
     border: 1px solid #ccc;
@@ -109,5 +116,28 @@ export default {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     background-color: transparent;
+}
+
+.iata-suggestion-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 15vw;
+
+}
+
+.iata-suggestion {
+    width: 100%;
+    display: flex;
+    cursor: pointer;
+    color: #1b55b0;
+    padding: 10px;
+    border-radius: 0.5rem;
+
+
+}
+
+.iata-suggestion:hover {
+    background-color: #1b54b02a;
 }
 </style>
