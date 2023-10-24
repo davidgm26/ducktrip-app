@@ -143,18 +143,20 @@
             <p class="paragraph">Utiliza <b>servicios de almacenamiento en la nube</b> para respaldar tus fotos y documentos
                 importantes, como pasaportes y reservas de hotel, en caso de pérdida o robo.</p>
         </section>
+        <ButtonToTop />
     </main>
-    <ButtonToTop />
+    <FooterSection />
 </template>
 
 <script>
 import NavigationTopBar from '../components/NavigationTopBar.vue';
 import ProgressBar from '../components/ProgressBar.vue';
 import ButtonToTop from '../components/ButtonToTop.vue';
+import FooterSection from '../components/FooterSection.vue';
 
 export default {
     name: 'TipsPage',
-    components: { NavigationTopBar, ProgressBar, ButtonToTop },
+    components: { NavigationTopBar, ProgressBar, ButtonToTop, FooterSection },
     data() {
         return {
             listaMaleta: [

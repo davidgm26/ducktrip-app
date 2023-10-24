@@ -22,6 +22,7 @@
             </div>
         </div>
     </div>
+    <FooterSection />
 </template>
 
 <script>
@@ -31,10 +32,11 @@ import elenaImageHover from '@/assets/images/about-elena-hover.jpg';
 import davidImage from '@/assets/images/about-david.jpg';
 import davidImageHover from '@/assets/images/about-david-hover.jpg';
 import memberImage from '@/assets/images/about-member.png';
+import FooterSection from '../components/FooterSection.vue';
 
 export default {
     name: 'AboutPage',
-    components: { NavigationTopBar },
+    components: { NavigationTopBar, FooterSection },
     data() {
         return {
             members: [
