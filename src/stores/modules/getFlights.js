@@ -24,6 +24,7 @@ export async function getFlights(
   departureDate,
   adult
 ) {
+  localStorage.clear(token)
   let token = localStorage.getItem("token");
   if (!token) {
     const newToken = await getToken();
@@ -94,7 +95,7 @@ export async function suggestLocation(location) {
       localStorage.setItem("token", "");
       return "El token ha expirado";
     }
-    return data;
+    return data.data;
   } catch (err) {
     console.log(err);
     return "No hay ninguna coicidencia";
