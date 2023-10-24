@@ -20,20 +20,20 @@
             <div class="departures-arrivals">
                 <img src="../assets/icons/departures.svg" alt="" srcset="">
                 <div class="hour">
-                    {{ formatDateHour(FlightsOffers.data[index].itineraries[0].segments[0].arrival.at) }}
+                    {{ formatDateHour(FlightsOffers.data[index].itineraries[0].segments[0].departure.at) }}
                 </div>
                 <div class="airport-name">
-                    {{ FlightsOffers.data[index].itineraries[0].segments[0].arrival.iataCode }}
+                    {{ FlightsOffers.data[index].itineraries[0].segments[0].departure.iataCode }}
                 </div>
 
             </div>
             <div class="departures-arrivals">
                 <img src="../assets/icons/arrivals.svg" alt="" srcset="">
                 <div class="hour">
-                    {{ formatDateHour(FlightsOffers.data[index].itineraries[0].segments[0].departure.at) }}
+                    {{ formatDateHour(FlightsOffers.data[index].itineraries[0].segments[0].arrival.at) }}
                 </div>
                 <div class="airport-name">
-                    {{ FlightsOffers.data[index].itineraries[0].segments[0].departure.iataCode }}
+                    {{ FlightsOffers.data[index].itineraries[0].segments[0].arrival.iataCode }}
                 </div>
             </div>
             <div class="final-price">

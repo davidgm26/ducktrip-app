@@ -24,7 +24,6 @@ export async function getFlights(
   departureDate,
   adult
 ) {
-  localStorage.clear(token)
   let token = localStorage.getItem("token");
   if (!token) {
     const newToken = await getToken();
