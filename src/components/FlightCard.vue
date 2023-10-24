@@ -5,65 +5,67 @@
         <p>Fecha: {{ departureDate }}</p>
         <p>Nº de Adultos: {{ adult }}</p>
     </div>
-    <div class="container" v-for="(Fligths, index) in FlightsOffers.data" :key="Fligths">
+    <div class="error-msg" v-if="flightOffers === 0">
+        <p>
+            NO SE HAN ENCONTRADO VUELOS
+        </p>
+    </div>
+    <div class="container" v-for="(Fligth, index) in flightOffers.data" :key="Fligth">
         <div class="airline-logo">
-            iata de aerolinea: {{ FlightsOffers.data[index].validatingAirlineCodes[0] }}
-            <img :src="`https://daisycon.io/images/airline/?width=900&iata=${FlightsOffers.data[index].validatingAirlineCodes[0]}`"
-                alt="" srcset="">
+            <h1 class="ariline-title">iata de aerolinea: {{ Fligth.validatingAirlineCodes[0] }}</h1>
+            <img :src="`https://daisycon.io/images/airline/?width=900&iata=${Fligth.validatingAirlineCodes[0]}`" alt=""
+                srcset="">
         </div>
         <div class="info">
             <div class="flight-duration">
                 <h1>
-                    {{ formatDuration(FlightsOffers.data[index].itineraries[0].duration) }}
+                    {{ formatDuration(Fligth.itineraries[0].duration) }}
                 </h1>
             </div>
-            <div class="departures-arrivals">
-                <img src="../assets/icons/departures.svg" alt="" srcset="">
-                <div class="hour">
-                    {{ formatDateHour(FlightsOffers.data[index].itineraries[0].segments[0].departure.at) }}
-                </div>
-                <div class="airport-name">
-                    {{ FlightsOffers.data[index].itineraries[0].segments[0].departure.iataCode }}
-                </div>
+            <div class="flight-segments" v-for="segment in Fligth.itineraries[0].segments" :key="segment.number">
+                <div class="departures-arrivals">
+                    <img src="../assets/icons/departures.svg" alt="" srcset="">
+                    <div class="hour">
+                        {{ formatDateHour(segment.departure.at) }}
+                    </div>
+                    <div class="airport-name">
+                        {{ segment.departure.iataCode }}
+                    </div>
 
+                </div>
+                <div class="departures-arrivals">
+                    <img src="../assets/icons/arrivals.svg" alt="" srcset="">
+                    <div class="hour">
+                        {{ formatDateHour(segment.arrival.at) }}
+                    </div>
+                    <div class="airport-name">
+                        {{ segment.arrival.iataCode }}
+                    </div>
+                </div>
             </div>
-            <div class="departures-arrivals">
-                <img src="../assets/icons/arrivals.svg" alt="" srcset="">
-                <div class="hour">
-                    {{ formatDateHour(FlightsOffers.data[index].itineraries[0].segments[0].arrival.at) }}
-                </div>
-                <div class="airport-name">
-                    {{ FlightsOffers.data[index].itineraries[0].segments[0].arrival.iataCode }}
-                </div>
+            <div v-if="Fligth.itineraries[0].segments.length > 1">
+                <p class="non-stop">VUELO CON ESCALA</p>
             </div>
             <div class="final-price">
-                <p>Total: {{ `${FlightsOffers.data[index].price.total} ${FlightsOffers.data[index].price.currency}` }}</p>
+                <p>Total: {{ `${flightOffers.data[index].price.total}
+                                    ${getSymbolForCurrency(flightOffers.data[index].price.currency)}` }}</p>
             </div>
         </div>
     </div>
 </template>
 <script>
-import { getFlights } from '../stores/modules/getFlights.js'
 import { flightSearchStore } from '../stores/counter'
 import { mapState } from 'pinia'
 
 export default {
     name: "FlightCard",
-
-    data() {
-        return {
-            FlightsOffers: "",
-            AirlineLogo: [],
-            getFlightsOffers: {}
-        }
-    },
-
     computed: {
         ...mapState(flightSearchStore, [
             'departureIata',
             'arrivalIata',
             'departureDate',
             'adult',
+            'flightOffers'
         ])
     },
     methods: {
@@ -72,17 +74,14 @@ export default {
             const match = durationString.match(regex);
             let hours = 0;
             let minutes = 0;
-
             if (match) {
                 if (match[1]) {
                     hours = parseInt(match[1], 10);
                 }
-
                 if (match[2]) {
                     minutes = parseInt(match[2], 10);
                 }
             }
-
             if (hours > 0 && minutes > 0) {
                 return `La duración es de ${hours}H y ${minutes}M`;
             } else if (hours > 0) {
@@ -94,17 +93,21 @@ export default {
             }
         },
         formatDateHour(datehour) {
-            // Reemplazar "T" por un espacio
             return datehour.replace("T", " ");
         },
+        getSymbolForCurrency(Code) {
+            const currencyCode = {
+                USD: '$',
+                EUR: '€',
+                JPY: '¥',
+                GBP: '£',
+                CAD: 'CA$',
+                AUD: 'A$',
+            }
+            return currencyCode[Code] || '';
+        }
     },
 
-    async mounted() {
-        this.FlightsOffers = await getFlights(this.departureIata, this.arrivalIata, this.departureDate, this.adult)
-        localStorage.setItem('FlightsOffers', JSON.stringify(this.FlightsOffers))
-        this.getFlightsOffers = localStorage.getItem('FlightsOffers')
-
-    }
 
 }
 </script>
@@ -113,11 +116,18 @@ export default {
     width: 40%;
     height: 5%;
     background-color: #D8E7FD;
+    color: black;
     border-radius: 50px;
     margin: auto;
     display: flex;
-    margin-top: 16px;
+    margin-top: 3rem;
     flex-direction: row;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 4px 4px 25px #3E86F5;
+        cursor: pointer;
+    }
 }
 
 .actual-info-container {
@@ -128,6 +138,7 @@ export default {
     height: 50px;
     position: sticky;
     top: 0;
+    z-index: 10;
 
     & p {
         display: flex;
@@ -138,7 +149,10 @@ export default {
     }
 }
 
+.error-msg {
 
+    color: black;
+}
 
 .airline-logo {
     width: 30%;
@@ -152,10 +166,20 @@ export default {
     border-radius: 50px;
 }
 
+.ariline-title {
+    color: #002148;
+}
+
 .info {
     display: flex;
     width: 70%;
     flex-direction: column;
+}
+
+.flight-segments {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 .departures-arrivals {
@@ -179,5 +203,9 @@ export default {
         display: flex;
         align-items: center;
     }
+}
+
+.non-stop {
+    color: red;
 }
 </style>

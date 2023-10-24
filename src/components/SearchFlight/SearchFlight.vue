@@ -40,7 +40,7 @@
                         :decrementAdults=decrementAdults :onReadyClick=handleReadyClick />
                 </div>
             </div>
-            <router-link class="search" to="/flights">Buscar</router-link>
+            <router-link class="search" to="/flights" @click="fetchFlightOffers">Buscar</router-link>
 
 
         </div>
@@ -57,6 +57,7 @@ import { vue3Debounce } from 'vue-debounce'
 import DropDownArrival from "./components/DropDown/DropDownArrival.vue"
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import { getFlights } from '../../stores/modules/getFlights.js'
 
 export default {
     components: {
@@ -145,7 +146,11 @@ export default {
             this.setdepartureDate(formatedDate)
             return formatedDate;
         },
-        ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'incrementAdultCount', 'decrementAdults']),
+        async fetchFlightOffers() {
+            const data = await getFlights(this.departureIata, this.arrivalIata, this.departureDate, this.adult)
+            this.setFlightOffers(data)
+        },
+        ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'incrementAdultCount', 'decrementAdults', 'setFlightOffers']),
     }
 }
 

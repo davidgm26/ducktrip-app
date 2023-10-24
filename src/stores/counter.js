@@ -5,6 +5,7 @@ export const flightSearchStore = defineStore("FlightSearch", {
     arrivalIata: "",
     departureDate: "",
     adult: 1,
+    flightOffers: {},
   }),
   actions: {
     setdepartureIata(departureIata) {
@@ -22,6 +23,9 @@ export const flightSearchStore = defineStore("FlightSearch", {
     },
     decrementAdults() {
       this.adult = Math.max(this.adult - 1, 1);
+    },
+    setFlightOffers(newFlightOffers) {
+      this.flightOffers = { ...newFlightOffers };
     },
   },
 });

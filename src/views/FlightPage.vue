@@ -1,9 +1,11 @@
 <template>
-    <NavigationTopBar />
-    <SearchFlight />
-    <div>
-        <FlightCard />
-    </div>
+    <main>
+        <NavigationTopBar />
+        <SearchFlight />
+        <div>
+            <FlightCard />
+        </div>
+    </main>
 </template>
 <script>
 import FlightCard from '../components/FlightCard.vue';
@@ -18,4 +20,8 @@ export default {
     }
 }
 </script>
-<style scoped></style>
+<style scoped>
+main {
+    background-color: white;
+}
+</style>
