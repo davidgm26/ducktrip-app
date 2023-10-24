@@ -159,6 +159,7 @@ export default {
 
 .error-msg {
   width: 100%;
+  height: 17vw;
   color: black;
   display: flex;
   justify-content: center;
