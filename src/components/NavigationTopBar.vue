@@ -9,11 +9,7 @@
 
             </div>
             <div class="buttons">
-<<<<<<< HEAD
-                <router-link to="/" class="button">Home</router-link>
-=======
                 <router-link to="/about" class="button">About</router-link>
->>>>>>> develop
                 <router-link to="/flights" class="button">Vuelos</router-link>
                 <router-link to="/tips" class="button">Tips</router-link>
                 <!-- <router-link to="/" class="button">Tiempo</router-link> -->

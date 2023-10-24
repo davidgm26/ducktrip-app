@@ -1,9 +1,9 @@
 <template>
     <div v-if="isVisible" class="dropdown">
-        <div class="iata-suggestion-container" v-for="(suggestion, index) in suggestion.data" :key="index">
-            <p class="iata-suggestion" @click="selectSuggestion(suggestion.iataCode)">{{ suggestion.detailedName }} | {{
-                suggestion.iataCode
-            }}</p>
+        <div class="iata-suggestion-container" v-for="(suggestion, index) in suggestion" :key="index">
+            <div class="iata-suggestion" @click="selectSuggestion(suggestion.iataCode)">
+                <p class="first-p">{{ suggestion.name }} ({{ suggestion.iataCode }})</p>
+            </div>
         </div>
     </div>
 </template>
@@ -13,7 +13,11 @@ import { mapState, mapActions } from 'pinia'
 import { flightSearchStore } from '../../../../stores/counter';
 
 export default {
-
+    data() {
+        return {
+            suggestionVisibility: true
+        }
+    },
     props: {
         isVisible: Boolean,
         suggestion: Object,
@@ -30,16 +34,19 @@ export default {
     methods: {
 
         selectSuggestion(iataCode) {
+
             console.log(iataCode);
             this.setarrivalIata(iataCode);
             this.setIsVisible(false)
         },
+
         ...mapActions(flightSearchStore, ['setdepartureIata', 'setarrivalIata', 'setdepartureDate', 'setadultCount']),
     }
 };
 
 
 </script>
+
 
 <style>
 .dropdown {
@@ -120,11 +127,22 @@ export default {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
+    width: 15vw;
+
 }
 
 .iata-suggestion {
     width: 100%;
+    display: flex;
     cursor: pointer;
+    color: #1b55b0;
+    padding: 10px;
+    border-radius: 0.5rem;
 
+
+}
+
+.iata-suggestion:hover {
+    background-color: #1b54b02a;
 }
 </style>

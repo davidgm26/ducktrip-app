@@ -112,6 +112,7 @@ export default {
         // end of DropDown functions
         async getSuggestion() {
             this.suggestionDeparture = this.departureIata.length && await suggestLocation(this.departureIata)
+            console.log('sugestionDepart', this.suggestionDeparture)
         },
         async getSuggestionArrival() {
             this.suggestionArrival = this.departureIata.length && await suggestLocation(this.arrivalIata)
