@@ -12,8 +12,6 @@
                 <router-link to="/about" class="button">About</router-link>
                 <router-link to="/flights" class="button">Vuelos</router-link>
                 <router-link to="/tips" class="button">Tips</router-link>
-                <!-- <router-link to="/" class="button">Tiempo</router-link> -->
-                <!-- <router-link to="/" class="button">Hoteles</router-link> -->
             </div>
         </div>
         <div class="bottom-side">
@@ -79,7 +77,7 @@ export default {
             text-decoration: none;
 
             & img {
-                max-width: 30px;
+                max-width: 120px;
             }
         }
     }
