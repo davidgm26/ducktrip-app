@@ -5,8 +5,8 @@
     <p>Fecha: {{ departureDate }}</p>
     <p>Nº de Adultos: {{ adult }}</p>
   </div>
-  <div class="error-msg" v-if="flightOffers === 0">
-    <p>NO SE HAN ENCONTRADO VUELOS</p>
+  <div class="error-msg" v-if="errorMessage">
+    <p>{{ errorMessage }}</p>
   </div>
   <div class="container" v-for="Fligth in flightOffers.data" :key="Fligth">
     <div class="airline-logo">
@@ -75,6 +75,7 @@ export default {
       "departureDate",
       "adult",
       "flightOffers",
+      "errorMessage",
     ]),
   },
   methods: {
@@ -157,7 +158,14 @@ export default {
 }
 
 .error-msg {
+  width: 100%;
   color: black;
+  display: flex;
+  justify-content: center;
+  & p {
+    font-size: 3rem;
+    animation: horizontal-shaking 0.35s;
+  }
 }
 
 .airline-logo {
@@ -213,5 +221,23 @@ export default {
 
 .non-stop {
   color: red;
+}
+
+@keyframes horizontal-shaking {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 </style>

@@ -166,12 +166,16 @@ export default {
       return formatedDate;
     },
     async fetchFlightOffers() {
+      this.setErrorMessage(undefined);
       const data = await getFlights(
         this.departureIata,
         this.arrivalIata,
         this.departureDate,
         this.adult
       );
+      if (data.errorMessage) {
+        this.setErrorMessage(data.errorMessage);
+      }
       this.setFlightOffers(data);
     },
     ...mapActions(flightSearchStore, [
@@ -181,6 +185,7 @@ export default {
       "incrementAdultCount",
       "decrementAdults",
       "setFlightOffers",
+      "setErrorMessage",
     ]),
   },
 };

@@ -6,6 +6,7 @@ export const flightSearchStore = defineStore("FlightSearch", {
     departureDate: "",
     adult: 1,
     flightOffers: {},
+    errorMessage: undefined,
   }),
   actions: {
     setdepartureIata(departureIata) {
@@ -26,6 +27,9 @@ export const flightSearchStore = defineStore("FlightSearch", {
     },
     setFlightOffers(newFlightOffers) {
       this.flightOffers = { ...newFlightOffers };
+    },
+    setErrorMessage(errorMessage) {
+      this.errorMessage = errorMessage;
     },
   },
 });

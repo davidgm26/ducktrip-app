@@ -51,19 +51,26 @@ export async function getFlights(
     //   localStorage.setItem("token", "");
     //   return "Vuelve a intentarlo";
     // }
-    if (
-      data &&
-      data.errors &&
-      data.errors.length > 0 &&
-      data.errors[0].code === 38192
-    ) {
-      localStorage.setItem("token", "");
-      return "El token ha expirado";
+    if (data?.errors?.length > 0) {
+      if (data.errors[0].code === 38192) {
+        localStorage.setItem("token", "");
+        return { errorMessage: "El token ha expirado" };
+      }
+      if (data.errors[0].status === 400) {
+        return {
+          errorMessage: "Faltan campos por rellenar o se ha escrito algo mal",
+        };
+      }
+    }
+    if (data?.data?.length === 0) {
+      return {
+        errorMessage: "No se ha encontrado ningun vuelo",
+      };
     }
     return data;
   } catch (err) {
     console.log(err);
-    return "Error al encontrar vuelos";
+    return { errorMessage: "Error al encontrar vuelos" };
   }
 }
 
