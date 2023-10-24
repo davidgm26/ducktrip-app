@@ -7,14 +7,15 @@ export async function getToken() {
   data.append("client_id", "ILwtcPEt40G8mDOrpB7LgJiROXJ3XFJj");
   data.append("client_secret", "KmKijFj51UOfDmNs");
 
-  const tokenData = await fetch(url, {
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: data,
-  }).then((response) => response.json());
-  return tokenData.access_token;
+  });
+  const responseData = await response.json();
+  return responseData.access_token;
 }
 
 export async function getFlights(
@@ -23,11 +24,12 @@ export async function getFlights(
   departureDate,
   adult
 ) {
+  localStorage.clear(token)
   let token = localStorage.getItem("token");
   if (!token) {
     const newToken = await getToken();
     token = newToken;
-    localStorage.setItem("token", newToken);
+    localStorage.setItem("token", token);
   }
   const options = {
     method: "GET",
@@ -71,7 +73,7 @@ export async function suggestLocation(location) {
   if (!token) {
     const newToken = await getToken();
     token = newToken;
-    localStorage.setItem("token", newToken);
+    localStorage.setItem("token", token);
   }
   const options = {
     method: "GET",
@@ -93,7 +95,7 @@ export async function suggestLocation(location) {
       localStorage.setItem("token", "");
       return "El token ha expirado";
     }
-    return data;
+    return data.data;
   } catch (err) {
     console.log(err);
     return "No hay ninguna coicidencia";
