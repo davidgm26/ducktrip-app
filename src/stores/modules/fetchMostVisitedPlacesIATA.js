@@ -5,6 +5,7 @@ export async function getFamousPlaces() {
     if (!token) {
       const newToken = await getToken();
       token = newToken;
+      console.log('adios',token);
       localStorage.setItem("token", token);
     }
     const options = {
