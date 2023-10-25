@@ -33,7 +33,7 @@ export default {
     display: block;
     border-radius: 50%;
     position: fixed;
-    bottom: 50px;
+    bottom: 100px;
     right: 50px;
     background-color: #3E86F5;
     box-shadow: 5px 5px 10px #3E86F5;

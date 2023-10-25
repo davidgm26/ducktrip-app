@@ -1,21 +1,30 @@
 <template>
+  <main>
     <NavigationTopBar />
+    <SearchFlight />
     <div>
-        <FlightCard />
+      <FlightCard />
     </div>
-    <FooterSection style="position: fixed; bottom: 0;" />
+  </main>
+  <FooterSection />
 </template>
 <script>
-import FlightCard from '../components/FlightCard.vue';
-import FooterSection from '../components/FooterSection.vue';
-import NavigationTopBar from '../components/NavigationTopBar.vue';
+import FlightCard from "../components/FlightCard.vue";
+import FooterSection from "../components/FooterSection.vue";
+import NavigationTopBar from "../components/NavigationTopBar.vue";
+import SearchFlight from "../components/SearchFlight/SearchFlight.vue";
 export default {
-    name: 'FlightPage',
-    components: {
-        NavigationTopBar,
-        FlightCard,
-        FooterSection
-    }
-}
+  name: "FlightPage",
+  components: {
+    NavigationTopBar,
+    FlightCard,
+    SearchFlight,
+    FooterSection,
+  },
+};
 </script>
-<style scoped></style>
+<style scoped>
+main {
+  background-color: white;
+}
+</style>
