@@ -200,7 +200,7 @@ export default {
 .nav {
   background-color: #1b55b0;
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 2rem;
 }
 
 .nav-tittle {
@@ -210,7 +210,7 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 
 .buttons-container {
