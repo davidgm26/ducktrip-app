@@ -1,6 +1,13 @@
 <template>
   <div v-if="isVisible" class="dropdown">
     <div
+      v-if="suggestion.length > 0"
+      @click="this.setIsVisible(false)"
+      class="close-button"
+    >
+      x
+    </div>
+    <div
       class="iata-suggestion-container"
       v-for="(suggestion, index) in suggestion"
       :key="index"
@@ -51,6 +58,16 @@ export default {
 </script>
 
 <style>
+.close-button {
+  text-align: center;
+  color: darkgrey;
+  cursor: pointer;
+  &.close-button:hover {
+    background-color: #1b54b02a;
+    color: black;
+  }
+}
+
 .dropdown {
   position: absolute;
   top: 80px;

@@ -301,6 +301,11 @@ export default {
 }
 
 @media (max-width: 1444px) {
+  .error-msg {
+    & p {
+      font-size: 1.5rem;
+    }
+  }
   .container {
     flex-direction: column;
     width: 50%;
@@ -316,6 +321,11 @@ export default {
   }
 }
 @media (max-width: 425px) {
+  .error-msg {
+    & p {
+      font-size: 1rem;
+    }
+  }
   .actual-info-container {
     & p {
       height: 32%;
