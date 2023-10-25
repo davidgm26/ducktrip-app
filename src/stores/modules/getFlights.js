@@ -5,9 +5,9 @@ localStorage.getItem("token");
 export async function getToken() {
   const url = "https://test.api.amadeus.com/v1/security/oauth2/token";
   const data = new URLSearchParams();
-  data.append("grant_type",`${process.env.VITE_grantype}`);
-  data.append("client_id", `${process.env.VITE_client_id}`);
-  data.append("client_secret",`${process.env.VITE.client_secret}`);
+  data.append("grant_type",`${import.meta.env.VITE_grantype}`);
+  data.append("client_id", `${import.meta.env.VITE_client_id}`);
+  data.append("client_secret",`${import.meta.env.VITE.client_secret}`);
 
   const response = await fetch(url, {
     method: "POST",
