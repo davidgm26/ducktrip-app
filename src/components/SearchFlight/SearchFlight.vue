@@ -33,6 +33,7 @@
             :isVisible="showDropDownArrival"
             :suggestion="suggestionArrival"
             :setIsVisible="setDropDownArrivalVisibility"
+            @blur="toggleDropdownArrival"
           />
         </div>
         <div class="option-wrapper">

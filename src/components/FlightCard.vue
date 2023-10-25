@@ -7,7 +7,6 @@
   </div>
   <div class="error-msg" v-if="errorMessage">
     <p>{{ errorMessage }}</p>
-    <PlaneGame />
   </div>
   <div class="container" v-for="Fligth in flightOffers.data" :key="Fligth">
     <!-- <div class="flight-title-container">
@@ -75,13 +74,9 @@
 <script>
 import { flightSearchStore } from "../stores/counter";
 import { mapState } from "pinia";
-import PlaneGame from "./PlaneGame.vue";
 
 export default {
   name: "FlightCard",
-  component: {
-    PlaneGame,
-  },
   computed: {
     ...mapState(flightSearchStore, [
       "departureIata",

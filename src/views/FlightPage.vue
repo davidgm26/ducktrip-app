@@ -27,5 +27,6 @@ export default {
 main {
   background-color: white;
   padding-bottom: 4rem;
+  height: 84vh;
 }
 </style>
