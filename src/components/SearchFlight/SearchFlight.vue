@@ -197,9 +197,6 @@ export default {
   --dp-background-color: #d9e2f2;
 }
 
-.dp__theme_light {
-}
-
 .nav {
   background-color: #1b55b0;
   width: 100%;
