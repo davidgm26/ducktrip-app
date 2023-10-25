@@ -5,8 +5,8 @@
     <div>
       <FlightCard />
     </div>
-    <FooterSection />
   </main>
+  <FooterSection />
 </template>
 <script>
 import FlightCard from "../components/FlightCard.vue";
