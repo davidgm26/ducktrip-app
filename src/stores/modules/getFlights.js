@@ -1,11 +1,13 @@
+/* eslint-disable no-undef */
 localStorage.getItem("token");
+
 
 export async function getToken() {
   const url = "https://test.api.amadeus.com/v1/security/oauth2/token";
   const data = new URLSearchParams();
-  data.append("grant_type", "client_credentials");
-  data.append("client_id", "ILwtcPEt40G8mDOrpB7LgJiROXJ3XFJj");
-  data.append("client_secret", "KmKijFj51UOfDmNs");
+  data.append("grant_type",`${process.env.VITE_grantype}`);
+  data.append("client_id", `${process.env.VITE_client_id}`);
+  data.append("client_secret",`${process.env.VITE.client_secret}`);
 
   const response = await fetch(url, {
     method: "POST",
@@ -22,6 +24,7 @@ export async function getFlights(
   OriginIataCity,
   DestinyIataCity,
   departureDate,
+  isNonStop,
   adult
 ) {
   let token = localStorage.getItem("token");
@@ -37,7 +40,7 @@ export async function getFlights(
     },
   };
   const maxFlights = 10;
-  const BASE_URL = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${OriginIataCity}&destinationLocationCode=${DestinyIataCity}&departureDate=${departureDate}&adults=${adult}&nonStop=false&max=${maxFlights}`;
+  const BASE_URL = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${OriginIataCity}&destinationLocationCode=${DestinyIataCity}&departureDate=${departureDate}&adults=${adult}&nonStop=${isNonStop}&max=${maxFlights}`;
   try {
     const res = await fetch(BASE_URL, options);
     const data = await res.json();
@@ -60,6 +63,9 @@ export async function getFlights(
         return {
           errorMessage: "Faltan campos por rellenar o se ha escrito algo mal",
         };
+      }
+      if (data?.errors.status === 401) {
+        localStorage.removeItem("token");
       }
     }
     if (data?.data?.length === 0) {

@@ -26,5 +26,7 @@ export default {
 <style scoped>
 main {
   background-color: white;
+  padding-bottom: 4rem;
+  min-height: 84vh;
 }
 </style>

@@ -33,6 +33,7 @@
             :isVisible="showDropDownArrival"
             :suggestion="suggestionArrival"
             :setIsVisible="setDropDownArrivalVisibility"
+            @blur="toggleDropdownArrival"
           />
         </div>
         <div class="option-wrapper">
@@ -68,6 +69,10 @@
         >Buscar</router-link
       >
     </div>
+    <div class="check-box">
+      <input type="checkbox" id="flightCheckbox" v-model="isNonStop" /> Vuelos
+      directos
+    </div>
   </div>
 </template>
 
@@ -99,6 +104,7 @@ export default {
       suggestionDeparture: {},
       suggestionArrival: {},
       prevDate: "",
+      isNonStop: false,
     };
   },
   directives: {
@@ -146,13 +152,20 @@ export default {
         this.departureIata.length && (await suggestLocation(this.arrivalIata));
     },
     toggleDropdownLocation() {
-      this.isDropdownOpenLocation = !this.isDropdownOpenLocation;
+      this.isDropdownOpenLocation = true;
+      this.isDropdownOpenArrival = false;
+    },
+    focusoutDropDown() {
+      console.log("dropdown");
+      this.isDropdownOpenLocation = false;
+      this.isDropdownOpenArrival = false;
     },
     setDropDownLocationVisibility(newVisibility) {
       this.isDropdownOpenLocation = newVisibility;
     },
     toggleDropdownArrival() {
-      this.isDropdownOpenArrival = !this.isDropdownOpenArrival;
+      this.isDropdownOpenArrival = true;
+      this.isDropdownOpenLocation = false;
     },
     setDropDownArrivalVisibility(newVisibility) {
       this.isDropdownOpenArrival = newVisibility;
@@ -171,6 +184,7 @@ export default {
         this.departureIata,
         this.arrivalIata,
         this.departureDate,
+        this.isNonStop,
         this.adult
       );
       if (data.errorMessage) {
@@ -197,13 +211,10 @@ export default {
   --dp-background-color: #d9e2f2;
 }
 
-.dp__theme_light {
-}
-
 .nav {
   background-color: #1b55b0;
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 2rem;
 }
 
 .nav-tittle {
@@ -213,7 +224,7 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 
 .buttons-container {
