@@ -22,6 +22,7 @@ export async function getFlights(
   OriginIataCity,
   DestinyIataCity,
   departureDate,
+  isNonStop,
   adult
 ) {
   let token = localStorage.getItem("token");
@@ -37,7 +38,7 @@ export async function getFlights(
     },
   };
   const maxFlights = 10;
-  const BASE_URL = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${OriginIataCity}&destinationLocationCode=${DestinyIataCity}&departureDate=${departureDate}&adults=${adult}&nonStop=false&max=${maxFlights}`;
+  const BASE_URL = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${OriginIataCity}&destinationLocationCode=${DestinyIataCity}&departureDate=${departureDate}&adults=${adult}&nonStop=${isNonStop}&max=${maxFlights}`;
   try {
     const res = await fetch(BASE_URL, options);
     const data = await res.json();
