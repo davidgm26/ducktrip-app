@@ -5,8 +5,8 @@
     <div>
       <FlightCard />
     </div>
-    <FooterSection style="position: fixed" />
   </main>
+  <FooterSection />
 </template>
 <script>
 import FlightCard from "../components/FlightCard.vue";
@@ -26,5 +26,6 @@ export default {
 <style scoped>
 main {
   background-color: white;
+  padding-bottom: 4rem;
 }
 </style>
