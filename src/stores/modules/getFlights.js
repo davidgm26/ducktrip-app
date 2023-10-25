@@ -61,6 +61,9 @@ export async function getFlights(
           errorMessage: "Faltan campos por rellenar o se ha escrito algo mal",
         };
       }
+      if (data?.errors.status === 401) {
+        localStorage.removeItem("token");
+      }
     }
     if (data?.data?.length === 0) {
       return {

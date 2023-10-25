@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { getMostVisitedPlaces } from "../stores/modules/getMostVisitedPlaces";
+import { getMostVisitedPlacesAwait } from "../stores/modules/getMostVisitedPlaces";
 
 export default {
   name: "FamousPlaces",
@@ -35,8 +35,7 @@ export default {
   },
   methods: {
     async getSitiosFamosos() {
-      this.places = await getMostVisitedPlaces();
-      console.log("adios", this.places);
+      this.places = await getMostVisitedPlacesAwait();
       /*Guardar fecha de caducidad (today + X) */
       localStorage.setItem("places", JSON.stringify(this.places));
     },
