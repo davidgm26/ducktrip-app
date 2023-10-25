@@ -5,7 +5,7 @@
     <div>
       <FlightCard />
     </div>
-    <FooterSection style="position: fixed" />
+    <FooterSection />
   </main>
 </template>
 <script>
