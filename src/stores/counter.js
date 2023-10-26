@@ -20,7 +20,7 @@ export const flightSearchStore = defineStore("FlightSearch", {
     },
     incrementAdultCount() {
       this.adult++;
-      console.log(this.adult);
+      (this.adult);
     },
     decrementAdults() {
       this.adult = Math.max(this.adult - 1, 1);

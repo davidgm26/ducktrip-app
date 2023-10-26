@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     selectSuggestion(iataCode) {
-      console.log(iataCode);
+      iataCode;
       this.setarrivalIata(iataCode);
       this.setIsVisible(false);
     },

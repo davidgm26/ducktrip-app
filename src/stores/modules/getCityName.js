@@ -17,7 +17,6 @@ export async function getCityName(location) {
     try {
       const res = await fetch(BASE_URL, options);
       const data = await res.json();
-      console.log("data", data);
       if (
         data &&
         data.errors &&
@@ -29,7 +28,6 @@ export async function getCityName(location) {
       }
       return data.data;
     } catch (err) {
-      console.log(err);
       return "No hay ninguna coicidencia";
     }
   }

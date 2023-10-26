@@ -5,7 +5,6 @@ export async function getFamousPlaces() {
     if (!token) {
       const newToken = await getToken();
       token = newToken;
-      console.log('adios',token);
       localStorage.setItem("token", token);
     }
     const options = {
@@ -18,16 +17,6 @@ export async function getFamousPlaces() {
     try {
       const res = await fetch(BASE_URL, options);
       const data = await res.json();
-      console.log("data", data.data);
-      // if (
-      //   data &&
-      //   data.errors &&
-      //   data.errors.length > 0 &&
-      //   data.errors[0].code === 38190
-      // ) {
-      //   localStorage.setItem("token", "");
-      //   return "Vuelve a intentarlo";
-      // }
       if (
         data &&
         data.errors &&

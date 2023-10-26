@@ -42,8 +42,8 @@ export default {
   },
   methods: {
     selectSuggestion(iataCode) {
-      console.log(iataCode);
-      console.log("suggestion", this.suggestion);
+      iataCode;
+      "suggestion", this.suggestion;
       this.setdepartureIata(iataCode);
       this.setIsVisible(false);
     },

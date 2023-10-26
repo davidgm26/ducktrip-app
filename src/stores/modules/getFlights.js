@@ -43,7 +43,6 @@ export async function getFlights(
   try {
     const res = await fetch(BASE_URL, options);
     const data = await res.json();
-    console.log("data", data);
     // if (
     //   data &&
     //   data.errors &&
@@ -75,7 +74,6 @@ export async function getFlights(
     }
     return data;
   } catch (err) {
-    console.log(err);
     return { errorMessage: "Error al encontrar vuelos" };
   }
 }
@@ -97,7 +95,6 @@ export async function suggestLocation(location) {
   try {
     const res = await fetch(BASE_URL, options);
     const data = await res.json();
-    console.log("data", data);
     if (
       data &&
       data.errors &&
@@ -109,7 +106,6 @@ export async function suggestLocation(location) {
     }
     return data.data;
   } catch (err) {
-    console.log(err);
     return "No hay ninguna coicidencia";
   }
 }
