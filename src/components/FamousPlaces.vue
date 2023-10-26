@@ -38,6 +38,7 @@ export default {
       this.places = await getMostVisitedPlacesAwait();
       /*Guardar fecha de caducidad (today + X) */
       localStorage.setItem("places", JSON.stringify(this.places));
+      console.log("hola rey");
     },
   },
   async mounted() {
