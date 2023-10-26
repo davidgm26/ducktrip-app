@@ -51,6 +51,8 @@ import davidImage from "@/assets/images/about-david.jpg";
 import davidImageHover from "@/assets/images/about-david-hover.jpg";
 import carlosImage from "@/assets/images/about-carlos.jpg";
 import carlosImageHover from "@/assets/images/about-carlos-hover.jpg";
+import alejandroImage from "@/assets/images/about-alejandro.jpg";
+import alejandroImageHover from "@/assets/images/about-alejandro-hover.jpg";
 import memberImage from "@/assets/images/about-member.png";
 import FooterSection from "../components/FooterSection.vue";
 
@@ -87,8 +89,8 @@ export default {
         {
           id: 4,
           name: "Alejandro Reguera Rodríguez",
-          image: memberImage,
-          hoverImage: memberImage,
+          image: alejandroImage,
+          hoverImage: alejandroImageHover,
           github: "https://github.com/VassHigh",
           linkedin: "https://www.linkedin.com/in/elena-exp%C3%B3sito-lara/",
         },
