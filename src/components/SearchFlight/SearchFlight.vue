@@ -6,7 +6,7 @@
         <div class="option-wrapper">
           <label class="nav-info">Desde {{ departureIata }}</label>
           <input
-            v-debounce:500ms="getSuggestion"
+            v-debounce:400ms="getSuggestion"
             class="nav-description"
             placeholder="País, ciudad o aeropuerto"
             @input="updateFlight"
@@ -70,8 +70,8 @@
       >
     </div>
     <div class="check-box">
-      <input type="checkbox" id="flightCheckbox" v-model="isNonStop" /> Vuelos
-      directos
+      <input type="checkbox" id="flightCheckbox" v-model="isNonStop" />
+      <p class="nonstop-text">Vuelos directos</p>
     </div>
   </div>
 </template>
@@ -145,7 +145,7 @@ export default {
       this.suggestionDeparture =
         this.departureIata.length &&
         (await suggestLocation(this.departureIata));
-      console.log("sugestionDepart", this.suggestionDeparture);
+      "sugestionDepart", this.suggestionDeparture;
     },
     async getSuggestionArrival() {
       this.suggestionArrival =
@@ -156,7 +156,7 @@ export default {
       this.isDropdownOpenArrival = false;
     },
     focusoutDropDown() {
-      console.log("dropdown");
+      ("dropdown");
       this.isDropdownOpenLocation = false;
       this.isDropdownOpenArrival = false;
     },
@@ -337,5 +337,13 @@ export default {
   .option-wrapper:last-child {
     border-radius: 0 0 0.5rem 0.5rem;
   }
+}
+
+.check-box {
+  display: flex;
+  accent-color: #fd787b;
+}
+.nonstop-text {
+  color: #fff;
 }
 </style>

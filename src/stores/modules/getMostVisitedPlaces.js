@@ -43,10 +43,8 @@ export const getMostVisitedPlacesAwait = async () => {
   }
   //   await mostVisited.forEach(async (city) => {
   //     const score = city.analytics.travelers.score;
-  //     console.log("getCityName");
   //     const name = await getCityName(city.destination);
   //     const cityName = name?.at(0)?.address?.cityName;
-  //     console.log("getCityPhoto");
   //     const data = await getCityPhoto(cityName.toLowerCase());
   //     const image = data?.photos[0]?.image?.mobile || defaultImg;
   //     const place = {

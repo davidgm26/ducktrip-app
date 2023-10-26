@@ -1,13 +1,12 @@
 /* eslint-disable no-undef */
 localStorage.getItem("token");
 
-
 export async function getToken() {
   const url = "https://test.api.amadeus.com/v1/security/oauth2/token";
   const data = new URLSearchParams();
-  data.append("grant_type",`${process.env.VITE_grantype}`);
-  data.append("client_id", `${process.env.VITE_client_id}`);
-  data.append("client_secret",`${process.env.VITE.client_secret}`);
+  data.append("grant_type", "client_credentials");
+  data.append("client_id", `${import.meta.env.VITE_client_id}`);
+  data.append("client_secret", `${import.meta.env.VITE_client_secret}`);
 
   const response = await fetch(url, {
     method: "POST",
@@ -44,7 +43,6 @@ export async function getFlights(
   try {
     const res = await fetch(BASE_URL, options);
     const data = await res.json();
-    console.log("data", data);
     // if (
     //   data &&
     //   data.errors &&
@@ -68,6 +66,7 @@ export async function getFlights(
         localStorage.removeItem("token");
       }
     }
+
     if (data?.data?.length === 0) {
       return {
         errorMessage: "No se ha encontrado ningun vuelo",
@@ -75,7 +74,6 @@ export async function getFlights(
     }
     return data;
   } catch (err) {
-    console.log(err);
     return { errorMessage: "Error al encontrar vuelos" };
   }
 }
@@ -97,7 +95,6 @@ export async function suggestLocation(location) {
   try {
     const res = await fetch(BASE_URL, options);
     const data = await res.json();
-    console.log("data", data);
     if (
       data &&
       data.errors &&
@@ -109,7 +106,6 @@ export async function suggestLocation(location) {
     }
     return data.data;
   } catch (err) {
-    console.log(err);
     return "No hay ninguna coicidencia";
   }
 }

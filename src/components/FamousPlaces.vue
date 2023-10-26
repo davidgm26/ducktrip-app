@@ -3,6 +3,9 @@
     <h2 class="most-famous-tittle">
       Los destinos más seleccionados por los pasajeros
     </h2>
+    <div v-if="places.length === 0" class="loader-container">
+      <span class="loader"></span>
+    </div>
     <div class="card-container">
       <div
         class="card"
@@ -53,6 +56,42 @@ export default {
 </script>
 
 <style scoped>
+.loader-container {
+  display: flex;
+  justify-content: center;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 4px solid #3e86f5;
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-left: 4px solid #00307a;
+  border-bottom: 4px solid transparent;
+  animation: rotation 0.5s linear infinite reverse;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .famous-places {
   background-color: #ffffff;
   color: #00307a;

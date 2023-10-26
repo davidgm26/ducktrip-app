@@ -7,6 +7,10 @@
   </div>
   <div class="error-msg" v-if="errorMessage">
     <p>{{ errorMessage }}</p>
+    <img src="../assets/images/errorpato.png" alt="" srcset="" />
+  </div>
+  <div class="load-spinner-container" v-if="flightOffers.length === 0">
+    <span class="loader"></span>
   </div>
   <div class="container" v-for="Fligth in flightOffers.data" :key="Fligth">
     <!-- <div class="flight-title-container">
@@ -129,6 +133,33 @@ export default {
 };
 </script>
 <style scoped>
+.load-spinner-container {
+  display: flex;
+  justify-content: center;
+}
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 4px solid #3e86f5;
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-left: 4px solid #00307a;
+  border-bottom: 4px solid transparent;
+  animation: rotation 0.5s linear infinite reverse;
+}
 .container {
   width: 40%;
   height: 5%;
@@ -169,9 +200,14 @@ export default {
 .error-msg {
   width: 100%;
   height: 17vw;
-  color: black;
+  color: #3e86f5;
   display: flex;
   justify-content: center;
+  align-items: center;
+  text-shadow: 0px 4px 4px #00000040;
+  & img {
+    width: 19rem;
+  }
   & p {
     font-size: 3rem;
     animation: horizontal-shaking 0.35s;
@@ -302,6 +338,10 @@ export default {
 
 @media (max-width: 1444px) {
   .error-msg {
+    & img {
+      width: 14rem;
+      height: 13rem;
+    }
     & p {
       font-size: 1.5rem;
     }
@@ -320,8 +360,20 @@ export default {
     }
   }
 }
+@media (max-width: 1024px) {
+  .error-msg {
+    & img {
+      width: 11rem;
+      height: 10rem;
+    }
+  }
+}
 @media (max-width: 425px) {
   .error-msg {
+    & img {
+      width: 5rem;
+      height: 4rem;
+    }
     & p {
       font-size: 1rem;
     }
