@@ -32,13 +32,13 @@ Para desplegar el proyecto
 
 
 
-## Authors
+## Autores
 
 - [Carlos Andrés Concepción Rodríguez](https://github.com/Conce131)
 - [Elena Exposito Lara ](https://github.com/ElenaExposito)
 - [David García María](https://github.com/davidgm26/)
 
-## Color Reference
+## Referencia de color
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
