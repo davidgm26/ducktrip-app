@@ -1,35 +1,54 @@
-# ducktrip-app
 
-This template should help get you started developing with Vue 3 in Vite.
+![Logo](https://github.com/davidgm26/ducktrip-app/blob/main/src/assets/images/logo.png)
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+# Ducktrip  
 
-## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Ducktrip es un proyecto realizado durante el curso impartido por la EOI "Desarrollo web con Vue", Ducktrip es una aplicación para la preparación de tus viajes. Está pensado para poder gestionar vuelos, hoteles y meteorología, para que viajes sin ningún tipo de problema.
 
-## Project Setup
 
-```sh
-npm install
+## Instalación
+
+Para trabajar en la aplicación es necesario clonar el repositorio usando  `git clone`, una vez clonado el repositorio en nuestro ordenador debemos ejecutar:
+
+```bash
+  npm install
+```
+    
+## Despliegue
+
+Para desplegar el proyecto 
+
+```bash
+  npm run dev
 ```
 
-### Compile and Hot-Reload for Development
 
-```sh
-npm run dev
-```
+## Herramientas usadas
 
-### Compile and Minify for Production
+ - [Amadeus API](https://developers.amadeus.com/)
+ - [Teleport public APIS](https://developers.teleport.org/api/getting_started/)
 
-```sh
-npm run build
-```
 
-### Lint with [ESLint](https://eslint.org/)
 
-```sh
-npm run lint
-```
+## Authors
+
+- [Carlos Andrés Concepción Rodríguez](https://github.com/Conce131)
+- [Elena Exposito Lara ](https://github.com/ElenaExposito)
+- [David García María](https://github.com/davidgm26/)
+
+## Color Reference
+
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| Color principal | ![#3e86f5](https://via.placeholder.com/10/3e86f5?text=+) #3e86f5 |
+| Color secundario | ![#fff](https://via.placeholder.com/10/fff?text=+) #fff       |
+| Color terciario | ![#002148](https://via.placeholder.com/10/002148?text=+) #002148 |
+
+
+## Tech Stack
+
+**Client:** Vue, CSS vanilla
+
+
