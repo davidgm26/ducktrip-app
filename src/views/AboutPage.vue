@@ -92,7 +92,7 @@ export default {
           image: alejandroImage,
           hoverImage: alejandroImageHover,
           github: "https://github.com/VassHigh",
-          linkedin: "https://www.linkedin.com/in/elena-exp%C3%B3sito-lara/",
+          linkedin: "https://www.linkedin.com/in/alejandroregueralopez/",
         },
       ],
     };
