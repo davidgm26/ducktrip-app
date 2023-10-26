@@ -8,7 +8,7 @@
   ## Not needed for static site generators.
   [[redirects]]
     from = "/*"
-    to = "/ErrorPage.vue"
+    to = "./ErrorPage.vue"
     status = 404  
 
   ## (optional) Settings for Netlify Dev
