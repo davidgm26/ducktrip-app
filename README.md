@@ -50,6 +50,7 @@ Para desplegar el proyecto
 ## Tech Stack
 
 **Client:** Vue, CSS vanilla
+
 **Gestion de tareas:**  - [Trello](https://trello.com/)
 
 
